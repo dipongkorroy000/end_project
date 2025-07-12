@@ -1,72 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { FaAffiliatetheme } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 
 const UserNavbar = ({ user }) => {
+  const [theme, setTheme] = useState(() => {
+    // Get theme from localStorage or default to 'dark'
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "light";
+  });
+
+  useEffect(() => {
+    const currentTheme = theme ? "light" : "dark";
+    document.querySelector("html").setAttribute("data-theme", currentTheme);
+    localStorage.setItem("theme", currentTheme);
+  }, [theme]);
+
+  const handleTheme = () => {
+    setTheme(!theme);
+  };
+
   const links = (
     <>
       <li>
-        <NavLink to="/dashboard" className="text-color">
-          Dashboard
-        </NavLink>
+        <NavLink to="/dashboard" className="text-color">Dashboard</NavLink>
       </li>
       <li>
-        <NavLink to="/" className="text-color">
-          Available Coin
-        </NavLink>
+        <NavLink to="/" className="text-color">Available Coin</NavLink>
       </li>
       <li>
-        <NavLink to="/profile" className="text-color">
-          User Profile
-        </NavLink>
+        <NavLink to="/profile" className="text-color">Profile</NavLink>
       </li>
       <li>
-        {
-          <NavLink to="/" className="text-color">
-            Logout
-          </NavLink>
-        }
-      </li>
-      <li>
-        {
-          <NavLink to="/" className="text-color">
-            Join as Developer
-          </NavLink>
-        }
+        <NavLink to="/" className="text-color">Join as Developer</NavLink>
       </li>
     </>
   );
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              {" "}
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />{" "}
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16" />
             </svg>
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
             {links}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
-          daisyUI
-        </Link>
+        <Link to="/" className="btn btn-ghost text-xl">daisyUI</Link>
       </div>
+
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
+
+      <div className="navbar-end gap-5 items-center">
+        <div
+          className={`tooltip tooltip-bottom mr-3 mt-2 ${
+            theme ? "before:bg-gray-800 before:text-white" : "before:bg-gray-100 before:text-black"
+          }`}
+          data-tip={theme ? "Switch to Dark Theme" : "Switch to Light Theme"}
+        >
+          <button>
+            <FaAffiliatetheme onClick={handleTheme} className="cursor-pointer" size={22} />
+          </button>
+        </div>
+
         <img
-          className="w-10 rounded-full"
+          className="w-10 h-10 rounded-full"
           alt="Profile Picture"
-          src={user.photoURL}
+          src={user?.photoURL || "https://laser360clinic.com/wp-content/uploads/2020/08/user-image.jpg"}
         />
       </div>
     </div>

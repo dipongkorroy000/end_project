@@ -1,12 +1,18 @@
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
+import LoadingSpinner from "../../Spinner/LoadingSpinner";
+import useAxios from "../../../hooks/useAxios";
 
 function SignIn() {
-  const { signIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
+  const axiosUse = useAxios();
+  const { signIn, loading } = useAuth();
   const {
     register,
     handleSubmit,
@@ -16,9 +22,19 @@ function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
 
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+
   const onSubmit = (data) => {
-    console.log("Sign In Data:", data);
-    // You can trigger your auth flow here
+    navigate(from);
+    signIn(data.email, data.password).then(async (result) => {
+      if (result.user) {
+        const response = await axiosUse.patch("/userUpdate", { email: data.email, role: false });
+        console.log(response.user);
+
+      }
+    });
   };
 
   return (

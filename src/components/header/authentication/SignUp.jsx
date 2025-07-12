@@ -3,43 +3,59 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./styles.css"; // for animation classes
 import useAuth from "../../../hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router";
+import LoadingSpinner from "../../Spinner/LoadingSpinner";
+import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
-import { Link } from "react-router";
+import SocialLogin from "./SocialLogin";
 
 function SignUp() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
   const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUserProfile } = useAuth();
   const [image, setImage] = useState(null);
+  const { loading } = useAuth();
+  const axiosUse = useAxios();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
-    createUser(data.email, data.password).then(async (result) => {
-      console.log("created user", result.user);
-
+    console.log(data.number);
+    createUser(data.email, data.password).then(async () => {
       const userUpdateInfo = await {
         displayName: data.name,
         photoURL: image,
       };
-
-      updateUserProfile(userUpdateInfo).then((result) => {
-        console.log("update firebase user", result);
-
-        // const userInfo = {
-        //   email: data.email,
-        //   role: data.role
-        //   created_at: new Date().toISOString(),
-        // };
+      navigate(from);
+      updateUserProfile(userUpdateInfo).then(async () => {
+        try {
+          const userInfo = await {
+            role: data.role,
+            number: data.number,
+            email: data.email,
+            coin: data.role === "buyer" ? 50 : 10,
+          };
+          const res = await axiosUse.post("/userCreate", userInfo);
+          if (res.status === 201) {
+            console.log("mongodb user created", res.data);
+          }
+        } catch (error) {
+          console.error("Failed to update user:", error.response?.data?.message || error.message);
+        }
+        reset();
       });
     });
   };
 
   const imageHandle = async (e) => {
-    // console.log("Uploading image...");
     const image = e.target.files[0];
 
     const imageUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`;
@@ -51,17 +67,16 @@ function SignUp() {
       const response = await axios.post(imageUrl, formData);
       // console.log("Upload response:", response.data);
       const uploadedImageUrl = response.data.data.url;
-
       // console.log(uploadedImageUrl)
-
       setImage(uploadedImageUrl);
-
-      // You can now set the image URL in state
-      // setImage(uploadedImageUrl);
     } catch (error) {
       console.error("Image upload failed:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div>
@@ -113,6 +128,30 @@ function SignUp() {
           {errors.role && <p className="text-red-500 text-sm mt-1">{errors.role?.message}</p>}
         </div>
 
+        {/* Phone Number */}
+        <div className="mb-4 animate-slideUp delay-100">
+          <label className="block mb-1 font-medium text-black">Phone Number</label>
+          <input
+            type="number"
+            {...register("number", {
+              required: "Number is required",
+              minLength: {
+                value: 11,
+                message: "Phone number must be exactly 11 digits",
+              },
+
+              maxLength: {
+                value: 11,
+                message: "Phone number must be exactly 11 digits",
+              },
+
+              // validate: (value) => value.toString().length === 11 || "Phone number must be exactly 11 ",
+            })}
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number?.message}</p>}
+        </div>
+
         {/* Email */}
         <div className="mb-4 animate-slideUp delay-200">
           <label className="block mb-1 font-medium text-black">Email</label>
@@ -160,7 +199,15 @@ function SignUp() {
         >
           Sign Up
         </button>
-        <h2 className="text-black mt-3">Already Have an Account ! <Link className="text-blue-600 underline" to="/signIn">SignIn</Link></h2>
+
+        <SocialLogin></SocialLogin>
+
+        <h2 className="text-black mt-3">
+          Already Have an Account !{" "}
+          <Link className="text-blue-600 underline" to="/signIn">
+            SignIn
+          </Link>
+        </h2>
       </form>
     </div>
   );
