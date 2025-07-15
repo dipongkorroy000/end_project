@@ -23,7 +23,7 @@ const DefaultNavbar = () => {
     <nav className="navbar bg-base-100 shadow-sm">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-xl">
-          daisyUI
+          TaskNest
         </Link>
       </div>
 
@@ -51,7 +51,7 @@ const DefaultNavbar = () => {
             </Link>
           </li>
         </ul>
-        <button className="btn bg-primary">Join as Developer</button>
+        <Link className="btn bg-primary" to={"https://github.com/dipongkorroy000"} >Join as Developer</Link>
       </div>
     </nav>
   );

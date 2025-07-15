@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -13,22 +14,33 @@ const SocialLogin = () => {
   const handleGoogle = () => {
     signInWithGoogle()
       .then(async (result) => {
-        const userInfo = {
+        const userInfo = await {
           email: result.user.email,
           role: "worker",
           coin: 10,
         };
 
-        await axiosUse.patch("/socialLogin", userInfo);
-        navigate(from);
+        await axiosUse.patch("/socialLogin", userInfo).then((res) => {
+          if (res.status === 201) {
+            toast(
+              <span className="text-sm">
+                Created Successfully <br />
+                <p>you get 10 coin</p>
+              </span>
+            );
+          } else {
+            toast("Login Successfully");
+          }
+          navigate(from);
+        });
       })
       .catch((error) => console.log(error));
   };
 
   return (
     <div className="text-center">
-      <div className="divider text-gray-500">OR</div>
-      <button onClick={handleGoogle} className="btn bg-white text-black border-[#e5e5e5] w-full">
+      <div className="divider">OR</div>
+      <button onClick={handleGoogle} className="btn w-full">
         <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <g>
             <path d="m0 0H512V512H0" fill="#fff"></path>

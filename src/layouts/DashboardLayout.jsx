@@ -2,16 +2,28 @@ import React from "react";
 import DashboardHeader from "../components/dashboardHeader/DashboardHeader";
 import Footer from "../pages/dashboard/footer/Footer";
 import { Link, Outlet, useNavigate } from "react-router";
-import { FiHome, FiLogOut, FiPackage, FiSettings } from "react-icons/fi";
+import {
+  FiHome,
+  FiLogOut,
+  FiPackage,
+  FiSettings,
+  FiPlusCircle,
+  FiClipboard,
+  FiCreditCard,
+  FiShoppingCart,
+  FiList,
+  FiSend,
+  FiDollarSign,
+} from "react-icons/fi";
 import { IoNotificationsCircleOutline } from "react-icons/io5";
 import useAuth from "../hooks/useAuth";
-import useAxios from "../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import PageSpinner from "../components/Spinner/PageSpinner";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const axiosUse = useAxios();
+  const axiosUse = useAxiosSecure();
   const { user, loading: load, logout } = useAuth();
 
   const { data = {}, loading } = useQuery({
@@ -37,43 +49,101 @@ const DashboardLayout = () => {
       <div className="drawer lg:drawer-open bg-base-200 min-h-screen">
         {/* Sidebar */}
         <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-72 min-h-full bg-base-100 text-base-content">
             <h2 className="">
               <Link to="/" className="btn btn-ghost text-xl font-bold mb-4">
-                📦daisyUI
+                📦TaskNest
               </Link>
             </h2>
+
             <li>
               <Link to="/dashboard">
-                <FiHome className="text-lg text-color" /> Dashboard
+                <FiHome className="text-lg text-color" /> Home
               </Link>
             </li>
-            <li>
-              <Link to="/parcels">
-                <FiPackage className="text-lg text-color" /> Parcels
-              </Link>
-            </li>
-            <li>
-              <Link to="/settings">
-                <FiSettings className="text-lg text-color" />
-                Settings
-              </Link>
-            </li>
-            <li>
-              <button>
-                <FiLogOut className="text-lg text-color" /> <span onClick={handleLogout}>Logout</span>
-              </button>
-            </li>
+
+            {/* admin  */}
+            {data.role === "admin" && (
+              <>
+                <li>
+                  <Link to="/dashboard/manageTask">
+                    <FiPackage className="text-lg text-color" /> ManageTask (admin)
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/manageUsers">
+                    <FiSettings className="text-lg text-color" />
+                    Manage Users (admin)
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* buyer */}
+            {data.role === "buyer" && (
+              <>
+                <li>
+                  <Link to={`/dashboard/addNewTask`}>
+                    <FiPlusCircle className="text-lg text-color" /> Add Task (buyer)
+                  </Link>
+                  {/* <Link to={`/dashboard/addNewTask/${user?.email}`}>
+                    <FiPlusCircle className="text-lg text-color" /> Add Task (buyer)
+                  </Link> */}
+                </li>
+                <li>
+                  <Link to="/dashboard/myTasks">
+                    <FiClipboard className="text-lg text-color" /> My Tasks (buyer)
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/paymentHistory">
+                    <FiCreditCard className="text-lg text-color" /> Payment History (buyer)
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/purchaseCoin">
+                    <FiShoppingCart className="text-lg text-color" /> Purchase Coin (buyer)
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* worker */}
+
+            {data.role === "worker" && (
+              <>
+                <li>
+                  <Link to="/dashboard/taskList">
+                    <FiList className="text-lg text-color" /> Task List (worker)
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/mySubmissions">
+                    <FiSend className="text-lg text-color" /> My Submissions (worker)
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/withdrawals">
+                    <FiDollarSign className="text-lg text-color" /> Withdrawals (worker)
+                  </Link>
+                </li>
+
+                <li>
+                  <button>
+                    <FiLogOut className="text-lg text-color" /> <span onClick={handleLogout}>Logout</span>
+                  </button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
         {/* Main Content */}
         <div className="drawer-content flex flex-col">
           {/* Top Navbar */}
-          <div className="navbar bg-base-100 px-4 shadow-md">
+          <div className="navbar bg-base-100 px-4 shadow-sm">
             <div className="flex-1">
               <label htmlFor="dashboard-drawer" className="btn btn-ghost lg:hidden ">
                 ☰
@@ -81,15 +151,20 @@ const DashboardLayout = () => {
               <span className="font-bold text-xl">Dashboard</span>
             </div>
 
-            <div className="flex flex-col items-end space-y-1 px-12 shadow-2xl">
+            <div className="flex flex-col items-end space-y-1 px-12 shadow-sm py-1">
               <div className="flex items-center space-x-2 justify-center">
                 <h2 className="text-2xl">{data?.coin || 0}</h2>
                 <span>|</span>
-                <img
-                  src={user?.photoURL || "https://laser360clinic.com/wp-content/uploads/2020/08/user-image.jpg"}
-                  className="w-7 content-center h-7 rounded-2xl"
-                  alt="profile pic"
-                />
+
+                {user?.photoURL ? (
+                  <img src={user?.photoURL} className="w-7 content-center h-7 rounded-2xl" alt="profile pic" />
+                ) : (
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6KK6VjSXL_KiLy8TgTSDm2oLwtFwMiZK-wg&s"
+                    className="w-7 content-center h-7 rounded-2xl"
+                    alt="profile pic"
+                  />
+                )}
               </div>
 
               {/* Second row: userRole | userName */}

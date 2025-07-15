@@ -5,7 +5,7 @@ const AuthLayout = () => {
   return (
     <>
       <Link to="/" className="btn btn-ghost text-xl">
-        daisyUI
+        TaskNest
       </Link>
       <Outlet></Outlet>
     </>

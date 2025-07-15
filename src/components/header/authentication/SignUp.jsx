@@ -4,22 +4,21 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./styles.css"; // for animation classes
 import useAuth from "../../../hooks/useAuth";
 import { Link, useLocation, useNavigate } from "react-router";
-import LoadingSpinner from "../../Spinner/LoadingSpinner";
 import useAxios from "../../../hooks/useAxios";
 import axios from "axios";
-import SocialLogin from "./SocialLogin";
+import { toast } from "react-toastify";
 
 function SignUp() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/";
 
-  const [showPassword, setShowPassword] = useState(false);
   const { createUser, updateUserProfile } = useAuth();
-  const [image, setImage] = useState(null);
-  const { loading } = useAuth();
   const axiosUse = useAxios();
 
+  const [authError, setAuthError] = useState(null);
+  const [image, setImage] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     handleSubmit,
@@ -28,31 +27,35 @@ function SignUp() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data.number);
-    createUser(data.email, data.password).then(async () => {
-      const userUpdateInfo = await {
-        displayName: data.name,
-        photoURL: image,
-      };
-      navigate(from);
-      updateUserProfile(userUpdateInfo).then(async () => {
-        try {
+    createUser(data.email, data.password)
+      .then(async () => {
+        setAuthError(null);
+        const userUpdateInfo = await {
+          displayName: data.name,
+          photoURL: image,
+        };
+        navigate(from);
+        updateUserProfile(userUpdateInfo).then(async () => {
           const userInfo = await {
             role: data.role,
             number: data.number,
             email: data.email,
             coin: data.role === "buyer" ? 50 : 10,
           };
-          const res = await axiosUse.post("/userCreate", userInfo);
-          if (res.status === 201) {
-            console.log("mongodb user created", res.data);
-          }
-        } catch (error) {
-          console.error("Failed to update user:", error.response?.data?.message || error.message);
-        }
-        reset();
+          await axiosUse.post("/userCreate", userInfo);
+          reset();
+          // toast(`you get ${data.role === "buyer" ? 50 : 10} coin`);
+          toast(
+            <span className="text-sm">
+              Created Successfully <br />
+              <p>you get {data.role === "buyer" ? 50 : 10} coin</p>
+            </span>
+          );
+        });
+      })
+      .catch((error) => {
+        setAuthError(error.message);
       });
-    });
   };
 
   const imageHandle = async (e) => {
@@ -74,35 +77,31 @@ function SignUp() {
     }
   };
 
-  if (loading) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
-
   return (
     <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-sm mx-auto p-6 bg-gray-50 rounded-lg shadow-lg animate-fadeIn mt-10"
+        className="max-w-sm mx-auto p-6 rounded-lg shadow-lg animate-fadeIn mt-10"
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-blue-500">Create Account</h2>
 
         {/* Name */}
         <div className="mb-4 animate-slideUp delay-100">
-          <label className="block mb-1 font-medium text-black">Name</label>
+          <label className="block mb-1 font-medium">Name</label>
           <input
             type="text"
             {...register("name", { required: "Name is required" })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name?.message}</p>}
         </div>
 
         {/* Picture */}
         <div className="mb-4 animate-slideUp delay-100">
-          <label className="block mb-1 font-medium text-black">Image</label>
+          <label className="block mb-1 font-medium ">Image</label>
           <input
             type="file"
-            className="w-full px-4 py-2 rounded bg-white text-black border border-gray-300 input"
+            className="w-full px-4 py-2 rounded border border-gray-300 input"
             {...register("image", {
               required: "Image is required",
               onChange: (e) => imageHandle(e),
@@ -113,10 +112,10 @@ function SignUp() {
 
         {/* Role Selection */}
         <div className="mb-4 animate-slideUp delay-250">
-          <label className="block mb-1 font-medium text-black">Select Role</label>
+          <label className="block mb-1 font-medium">Select Role</label>
           <select
             {...register("role", { required: "Role is required" })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border rounded text-base focus:outline-none focus:ring-2 focus:ring-blue-400"
             defaultValue=""
           >
             <option value="" disabled>
@@ -130,7 +129,7 @@ function SignUp() {
 
         {/* Phone Number */}
         <div className="mb-4 animate-slideUp delay-100">
-          <label className="block mb-1 font-medium text-black">Phone Number</label>
+          <label className="block mb-1 font-medium ">Phone Number</label>
           <input
             type="number"
             {...register("number", {
@@ -147,14 +146,14 @@ function SignUp() {
 
               // validate: (value) => value.toString().length === 11 || "Phone number must be exactly 11 ",
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base  placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number?.message}</p>}
         </div>
 
         {/* Email */}
         <div className="mb-4 animate-slideUp delay-200">
-          <label className="block mb-1 font-medium text-black">Email</label>
+          <label className="block mb-1 font-medium ">Email</label>
           <input
             type="email"
             {...register("email", {
@@ -164,14 +163,14 @@ function SignUp() {
                 message: "Invalid email address",
               },
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email?.message}</p>}
         </div>
 
         {/* Password */}
         <div className="mb-4 relative animate-slideUp delay-300">
-          <label className="block mb-1 font-medium text-black">Password</label>
+          <label className="block mb-1 font-medium">Password</label>
           <input
             type={showPassword ? "text" : "password"}
             {...register("password", {
@@ -181,7 +180,7 @@ function SignUp() {
                 message: "Must be at least 6 characters with uppercase, lowercase, number, and no spaces",
               },
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base text-black bg-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base  placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <span
             className="absolute right-3 top-9 cursor-pointer text-gray-500 hover:text-blue-500 transition "
@@ -195,19 +194,19 @@ function SignUp() {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition transform hover:scale-[1.02]"
+          className="w-full bg-blue-500 py-2 rounded hover:bg-blue-600 transition transform hover:scale-[1.02]"
         >
           Sign Up
         </button>
 
-        <SocialLogin></SocialLogin>
+        {authError && <p className="text-red-500 text-sm my-2">{authError}</p>}
 
-        <h2 className="text-black mt-3">
-          Already Have an Account !{" "}
+        <div className="flex flex-col items-center justify-center">
+          <h2 className=" mt-3">Already have an account?</h2>
           <Link className="text-blue-600 underline" to="/signIn">
-            SignIn
+            Sign in
           </Link>
-        </h2>
+        </div>
       </form>
     </div>
   );

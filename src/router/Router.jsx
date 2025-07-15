@@ -8,12 +8,31 @@ import Profile from "../pages/profile/Profile";
 import PrivateRoutes from "../routes/PrivateRoutes";
 import ComponentSpinner from "../components/Spinner/ComponentSpinner";
 import ProfileUpdate from "../pages/profile/ProfileUpdate";
+import Home from "../pages/home/Home";
+import AddNewTask from "../pages/buyer/addNewTask/AddNewTask";
+import MyTasks from "../pages/buyer/myTasks/MyTasks";
+import PaymentHistory from "../pages/buyer/paymentHistory/PaymentHistory";
+import PurchaseCoin from "../pages/buyer/purchaseCoin/PurchaseCoin";
+import DashboardHome from "../pages/dashboardHome/DashboardHome";
+import ManageTask from "../pages/admin/manageTask/ManageTask";
+import ManageUsers from "../pages/admin/manageUsers/ManageUsers";
+import TaskList from "../pages/worker/taskList/TaskList";
+import MySubmissions from "../pages/worker/mySubmissions/MySubmissions";
+import Withdrawals from "../pages/worker/withDrawals/Withdrawals";
+import Forbidden from "../pages/forbidden/Forbidden";
+import BuyerRoutes from "../routes/BuyerRoutes";
+import WorkerRoutes from "../routes/WorkerRoutes";
+import AdminRoutes from "../routes/AdminRoutes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
     children: [
+      {
+        index: true,
+        Component: Home,
+      },
       {
         path: "/profile",
         element: (
@@ -29,6 +48,10 @@ const router = createBrowserRouter([
             <ProfileUpdate></ProfileUpdate>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/forbidden",
+        Component: Forbidden,
       },
     ],
   },
@@ -54,7 +77,116 @@ const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoutes>
     ),
-    children: [],
+    children: [
+      {
+        index: true,
+        element: (
+          <PrivateRoutes>
+            <DashboardHome></DashboardHome>
+          </PrivateRoutes>
+        ),
+      },
+
+      // admin
+      {
+        path: "manageTask",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <ManageTask></ManageTask>
+            </AdminRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element: (
+          <PrivateRoutes>
+            <AdminRoutes>
+              <ManageUsers></ManageUsers>
+            </AdminRoutes>
+          </PrivateRoutes>
+        ),
+      },
+
+      // buyer
+      {
+        path: "addNewTask",
+        // path: "addNewTask/:email",
+        // loader: ({ params }) => fetch(`/userFind?email=${params?.email}`),
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <AddNewTask></AddNewTask>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "myTasks",
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <MyTasks></MyTasks>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "paymentHistory",
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <PaymentHistory></PaymentHistory>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "purchaseCoin",
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <PurchaseCoin></PurchaseCoin>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+
+      // worker
+
+      {
+        path: "taskList",
+        element: (
+          <PrivateRoutes>
+            <WorkerRoutes>
+              <TaskList></TaskList>
+            </WorkerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+
+      {
+        path: "mySubmissions",
+        element: (
+          <PrivateRoutes>
+            <WorkerRoutes>
+              <MySubmissions></MySubmissions>
+            </WorkerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "withdrawals",
+        element: (
+          <PrivateRoutes>
+            <WorkerRoutes>
+              <Withdrawals></Withdrawals>
+            </WorkerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+    ],
   },
 ]);
 

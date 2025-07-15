@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import PageSpinner from "../../components/Spinner/PageSpinner";
+import { toast } from "react-toastify";
 
 const ProfileUpdate = () => {
   const [image, setImage] = useState(null);
@@ -37,11 +38,20 @@ const ProfileUpdate = () => {
         photoURL: image,
       };
 
-      updateUserProfile(updateDoc).then(() => navigate("/profile"));
+      updateUserProfile(updateDoc).then(async () => {
+        navigate("/profile");
 
-      await axiosUse.patch("/userUpdate", {
-        email: user.email,
-        role: role,
+        await axiosUse
+          .patch("/userUpdate", {
+            email: user.email,
+            role: role,
+          })
+          .then((res) => {
+
+            if (res.status === 201) {
+              toast("Updated Your Account");
+            }
+          });
       });
 
       // Optionally show a toast or reload data
