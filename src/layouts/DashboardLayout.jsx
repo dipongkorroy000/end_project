@@ -69,13 +69,13 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <Link to="/dashboard/manageTask">
-                    <FiPackage className="text-lg text-color" /> ManageTask (admin)
+                    <FiPackage className="text-lg text-color" /> ManageTask
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/manageUsers">
                     <FiSettings className="text-lg text-color" />
-                    Manage Users (admin)
+                    Manage Users
                   </Link>
                 </li>
               </>
@@ -85,26 +85,23 @@ const DashboardLayout = () => {
             {data.role === "buyer" && (
               <>
                 <li>
-                  <Link to={`/dashboard/addNewTask`}>
-                    <FiPlusCircle className="text-lg text-color" /> Add Task (buyer)
+                  <Link to="/dashboard/addNewTask">
+                    <FiPlusCircle className="text-lg text-color" /> Add Task
                   </Link>
-                  {/* <Link to={`/dashboard/addNewTask/${user?.email}`}>
-                    <FiPlusCircle className="text-lg text-color" /> Add Task (buyer)
-                  </Link> */}
                 </li>
                 <li>
                   <Link to="/dashboard/myTasks">
-                    <FiClipboard className="text-lg text-color" /> My Tasks (buyer)
+                    <FiClipboard className="text-lg text-color" /> My Tasks
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/paymentHistory">
-                    <FiCreditCard className="text-lg text-color" /> Payment History (buyer)
+                    <FiCreditCard className="text-lg text-color" /> Payment History
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/purchaseCoin">
-                    <FiShoppingCart className="text-lg text-color" /> Purchase Coin (buyer)
+                    <FiShoppingCart className="text-lg text-color" /> Purchase Coin
                   </Link>
                 </li>
               </>
@@ -116,17 +113,17 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <Link to="/dashboard/taskList">
-                    <FiList className="text-lg text-color" /> Task List (worker)
+                    <FiList className="text-lg text-color" /> Task List
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/mySubmissions">
-                    <FiSend className="text-lg text-color" /> My Submissions (worker)
+                    <FiSend className="text-lg text-color" /> My Submissions
                   </Link>
                 </li>
                 <li>
                   <Link to="/dashboard/withdrawals">
-                    <FiDollarSign className="text-lg text-color" /> Withdrawals (worker)
+                    <FiDollarSign className="text-lg text-color" /> Withdrawals
                   </Link>
                 </li>
 

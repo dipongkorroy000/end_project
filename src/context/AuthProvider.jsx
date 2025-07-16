@@ -3,6 +3,7 @@ import { AuthContext } from "./AuthContext";
 import { auth } from "../firebase/firebase.init";
 import {
   createUserWithEmailAndPassword,
+  deleteUser,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -15,6 +16,7 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [taskTotalCoin, setCoin] = useState(0);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -41,6 +43,10 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const userDelete = () => {
+    deleteUser(user);
+  };
+
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       // console.log("user in the auth state change", currentUser);
@@ -51,7 +57,18 @@ const AuthProvider = ({ children }) => {
     return () => unSubscribe();
   }, [setUser, setLoading]);
 
-  const data = { createUser, updateUserProfile, signIn, signInWithGoogle, logout, user, loading };
+  const data = {
+    createUser,
+    updateUserProfile,
+    signIn,
+    signInWithGoogle,
+    logout,
+    user,
+    loading,
+    taskTotalCoin,
+    setCoin,
+    userDelete,
+  };
   return <AuthContext value={data}>{children}</AuthContext>;
 };
 

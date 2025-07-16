@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import LoadingSpinner from "../../components/Spinner/LoadingSpinner";
 
 const Header = () => {
-  const { user, loading } = useAuth();
+  const { user, loading, logout } = useAuth();
 
   // console.log(user)
 
@@ -14,7 +14,7 @@ const Header = () => {
   }
 
   if (user) {
-    return <UserNavbar user={user}></UserNavbar>;
+    return <UserNavbar user={user} logout={logout}></UserNavbar>;
   } else {
     return <DefaultNavbar></DefaultNavbar>;
   }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaAffiliatetheme } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 
-const UserNavbar = ({ user }) => {
+const UserNavbar = ({ user, logout }) => {
   const [theme, setTheme] = useState(() => {
     // Get theme from localStorage or default to 'dark'
     const savedTheme = localStorage.getItem("theme");
@@ -19,6 +19,10 @@ const UserNavbar = ({ user }) => {
     setTheme(!theme);
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   const links = (
     <>
       <li>
@@ -26,6 +30,7 @@ const UserNavbar = ({ user }) => {
           Dashboard
         </NavLink>
       </li>
+
       <li>
         <NavLink to="/" className="text-color">
           Available Coin
@@ -37,9 +42,14 @@ const UserNavbar = ({ user }) => {
         </NavLink>
       </li>
       <li>
-        <Link className="text-color" to={"https://github.com/dipongkorroy000"}>
+        <NavLink to="/" className="text-color">
+          <span onClick={handleLogout}>Logout</span>
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to={"https://github.com/dipongkorroy000"} className="text-color" >
           Join as Developer
-        </Link>
+        </NavLink>
       </li>
     </>
   );

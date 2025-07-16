@@ -1,6 +1,6 @@
 import { FaUserCircle, FaEnvelope, FaIdBadge, FaUserTag } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import PageSpinner from "../../components/Spinner/PageSpinner";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
@@ -8,8 +8,7 @@ import { format } from "date-fns";
 
 function Profile() {
   const axiosUse = useAxios();
-  const { user, logout, loading: load } = useAuth();
-  const navigate = useNavigate();
+  const { user, loading: load } = useAuth();
 
   const { data = {}, loading } = useQuery({
     queryKey: ["user", user?.email],
@@ -23,11 +22,6 @@ function Profile() {
   if (loading || load) {
     return <PageSpinner></PageSpinner>;
   }
-
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
 
   return (
     <div className="max-w-md mx-auto rounded-xl shadow-xl overflow-hidden p-6 animate-fadeIn my-10">
@@ -72,15 +66,6 @@ function Profile() {
           <FaUserCircle className="text-blue-500" /> last Log In:{" "}
           {data?.last_log_in ? format(new Date(data.last_log_in), "PPPp") : "Unknown"}
         </p>
-      </div>
-
-      <div>
-        <button
-          onClick={handleLogout}
-          className="bg-primary px-5 py-2 rounded-xl text-md font-semibold mt-5 cursor-pointer hover:text-black hover:shadow-2xl"
-        >
-          Logout
-        </button>
       </div>
     </div>
   );

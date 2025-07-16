@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import PageSpinner from "../../../components/Spinner/PageSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 const MyTasks = () => {
   const { user } = useAuth();
@@ -45,7 +46,10 @@ const MyTasks = () => {
   };
 
   const handleUpdateSubmit = async (taskId) => {
-    await axiosUse.patch(`/taskUpdate/${taskId}`, formData);
+    const responseUpdate = await axiosUse.patch(`/taskUpdate/${taskId}`, formData);
+    if (responseUpdate.status === 200) {
+      toast("Task updated successfully");
+    }
     setEditingId(null);
     setFormData({});
     refetch();
@@ -84,103 +88,123 @@ const MyTasks = () => {
   return (
     <div className="overflow-x-auto">
       <h2 className="text-xl font-semibold mb-4">My Tasks</h2>
-      <table className="table-auto w-full border border-gray-400">
-        <thead className="">
-          <tr>
-            <th className="p-2 border border-gray-400 text-color">Image</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Title</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Detail</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Submission Info</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Workers</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Pay/Worker</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Total Pay</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Completion Date</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Status</th>
-            <th className="p-2 border border-gray-400 min-w-36 text-color">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedTasks.map((task) => (
-            <tr key={task._id}>
-              <td className="p-1 border border-gray-400">
-                <img src={task.task_image_url} alt="task" className="w-16 h-16 object-cover rounded" />
-              </td>
 
-              {/* Editable fields */}
-              <td className="p-2 border border-gray-400">
-                {editingId === task._id ? (
-                  <input
-                    type="text"
-                    value={formData.task_title}
-                    onChange={(e) => setFormData({ ...formData, task_title: e.target.value })}
-                    className="w-full p-1 border-none rounded"
-                  />
-                ) : (
-                  task.task_title
-                )}
-              </td>
-              <td className="p-2 border border-gray-400">
-                {editingId === task._id ? (
-                  <textarea
-                    value={formData.task_detail}
-                    onChange={(e) => setFormData({ ...formData, task_detail: e.target.value })}
-                    className="w-full p-1 border-none rounded"
-                  />
-                ) : (
-                  task.task_detail
-                )}
-              </td>
-              <td className="p-2 border border-gray-400">
-                {editingId === task._id ? (
-                  <textarea
-                    value={formData.submission_info}
-                    onChange={(e) => setFormData({ ...formData, submission_info: e.target.value })}
-                    className="w-full border-none rounded"
-                  />
-                ) : (
-                  task.submission_info
-                )}
-              </td>
-
-              {/* Static fields */}
-              <td className="p-2 border border-gray-400 text-center">{task.required_workers}</td>
-              <td className="p-2 border border-gray-400 text-center">${task.payable_amount}</td>
-              <td className="p-2 border border-gray-400 text-center">${task.total_payable}</td>
-              <td className="p-2 border border-gray-400 text-center">{task.completion_date}</td>
-              <td className="p-2 border border-gray-400 text-center">{task.status}</td>
-
-              {/* Action buttons */}
-              <td className="p-2 border border-gray-400 space-x-2">
-                {editingId === task._id ? (
-                  <>
-                    <button
-                      onClick={() => handleUpdateSubmit(task._id)}
-                      className="px-2 py-1 bg-blue-500 rounded cursor-pointer"
-                    >
-                      Save
-                    </button>
-                    <button onClick={handleCancelEdit} className="px-2 py-1 rounded cursor-pointer">
-                      Cancel
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      onClick={() => handleEditClick(task)}
-                      className="px-2 py-1 bg-yellow-500 rounded cursor-pointer"
-                    >
-                      Edit
-                    </button>
-                    <button onClick={() => handleDelete(task)} className="px-2 py-1 bg-red-500 rounded cursor-pointer">
-                      Delete
-                    </button>
-                  </>
-                )}
-              </td>
+      {sortedTasks.length === 0 ? (
+        <div className="text-center font-bold py-10">
+          <p className="text-lg">You haven’t added any tasks yet.</p>
+        </div>
+      ) : (
+        <table className="table-auto w-full border border-gray-400">
+          <thead className="">
+            <tr>
+              <th className="p-2 border border-gray-400 text-color">Image</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Title</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Detail</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Submission Info</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Workers</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Pay/Worker</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Total Pay</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Completion Date</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Status</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Pay Status</th>
+              <th className="p-2 border border-gray-400 min-w-36 text-color">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedTasks.map((task) => (
+              <tr key={task._id}>
+                <td className="p-1 border border-gray-400">
+                  <img src={task.task_image_url} alt="task" className="w-16 h-16 object-cover rounded" />
+                </td>
+
+                {/* Editable fields */}
+                <td className="p-2 border border-gray-400">
+                  {editingId === task._id ? (
+                    <input
+                      type="text"
+                      value={formData.task_title}
+                      onChange={(e) => setFormData({ ...formData, task_title: e.target.value })}
+                      className="w-full p-1 border-none rounded"
+                    />
+                  ) : (
+                    task.task_title
+                  )}
+                </td>
+                <td className="p-2 border border-gray-400 align-top">
+                  <div className="max-h-32 overflow-y-auto text-sm font-sans">
+                    {editingId === task._id ? (
+                      <textarea
+                        value={formData.task_detail}
+                        onChange={(e) => setFormData({ ...formData, task_detail: e.target.value })}
+                        className="w-full p-1 border-none rounded resize-none"
+                        rows={4}
+                      />
+                    ) : (
+                      <p className="whitespace-pre-wrap">{task.task_detail}</p>
+                    )}
+                  </div>
+                </td>
+                <td className="p-2 border border-gray-400 align-top">
+                  <div className="max-h-32 overflow-y-auto text-sm font-sans">
+                    {editingId === task._id ? (
+                      <textarea
+                        value={formData.submission_info}
+                        onChange={(e) => setFormData({ ...formData, submission_info: e.target.value })}
+                        className="w-full p-1 border-none rounded resize-none"
+                        rows={4}
+                        placeholder="Enter submission info..."
+                      />
+                    ) : (
+                      <p className="whitespace-pre-wrap">{task.submission_info}</p>
+                    )}
+                  </div>
+                </td>
+
+                {/* Static fields */}
+                <td className="p-2 border border-gray-400 text-center">{task.required_workers}</td>
+                <td className="p-2 border border-gray-400 text-center">${task.payable_amount}</td>
+                <td className="p-2 border border-gray-400 text-center">${task.total_payable}</td>
+                <td className="p-2 border border-gray-400 text-center">{task.completion_date}</td>
+                <td className="p-2 border border-gray-400 text-center">{task.status}</td>
+
+                <td className="p-2 border border-gray-400 text-center">{task?.payment_status}</td>
+
+                {/* Action buttons */}
+                <td className="p-2 border border-gray-400 space-x-2">
+                  {editingId === task._id ? (
+                    <>
+                      <button
+                        onClick={() => handleUpdateSubmit(task._id)}
+                        className="px-2 py-1 bg-blue-500 rounded cursor-pointer"
+                      >
+                        Save
+                      </button>
+                      <button onClick={handleCancelEdit} className="px-2 py-1 rounded cursor-pointer">
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => handleEditClick(task)}
+                        className="px-2 py-1 bg-yellow-500 rounded cursor-pointer"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(task)}
+                        className="px-2 py-1 bg-red-500 rounded cursor-pointer"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

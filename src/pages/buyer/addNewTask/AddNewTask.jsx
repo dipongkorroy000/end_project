@@ -5,14 +5,16 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import useAxios from "../../../hooks/useAxios";
 
 function AddNewTask() {
-  const { user } = useAuth();
-  const axiosUseSecure = useAxiosSecure();
+  const { user, setCoin } = useAuth();
+  const axiosUse = useAxios();
   const [totalAmount, setTotalAmount] = useState(0);
   const [image, setImage] = useState(null);
-  const [amountError, setAmountError] = useState(null);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -23,53 +25,62 @@ function AddNewTask() {
   const { data: userCoin = 0 } = useQuery({
     queryKey: ["userCoin", user.email],
     queryFn: async () => {
-      const res = await axiosUseSecure.get(`/userFind?email=${user.email}`);
+      const res = await axiosUse.get(`/userFind?email=${user.email}`);
       return res.data.coin;
     },
     enabled: !!user?.email,
   });
 
   const onSubmit = async (data) => {
-    const total = Number(data.required_workers) * Number(data.payable_amount);
+    const total = (await Number(data.required_workers)) * Number(data.payable_amount);
     setTotalAmount(total);
+    setCoin(total);
 
     if (total > userCoin) {
-      setAmountError(total - userCoin);
+      await Swal.fire({
+        title: "Not available Coin",
+        text: `Purchase Coin : ${total - userCoin}`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Purchase",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/dashboard/purchaseCoin");
+        }
+      });
       return;
     } else {
-      setAmountError(null);
+      const taskPayload = await {
+        buyer_name: user.displayName,
+        ...data,
+        buyer_email: user.email,
+        task_image_url: image,
+        required_workers: Number(data.required_workers),
+        payable_amount: Number(data.payable_amount),
+        total_payable: total,
+        created_at: new Date(),
+      };
 
-      await axiosUseSecure.patch(`/userCoinUpdate?email=${user.email}`, { coin: userCoin - total, sumOrSub: true });
-    }
+      try {
+        const res = await axiosUse.post("/addTask", taskPayload);
 
-    const taskPayload = await {
-      ...data,
-      buyer_email: user.email,
-      task_image_url: image,
-      required_workers: Number(data.required_workers),
-      payable_amount: Number(data.payable_amount),
-      total_payable: total,
-      created_at: new Date(),
-    };
-
-    try {
-      const res = await axiosUseSecure.post("/addTask", taskPayload);
-      if (res.data?.taskId) {
+        // console.log(res.data)
+        if (res.data?.taskId) {
+          navigate(`/dashboard/payment/${res.data?.taskId}`);
+          toast("your task saved");
+          reset();
+          setTotalAmount(0);
+        }
+      } catch (error) {
+        console.error("Error saving task:", error);
         Swal.fire({
-          icon: "success",
-          title: "Task Added",
-          text: "Your task has been successfully saved!",
+          icon: "error",
+          title: "Failed to Save Task",
+          text: error.response?.data?.error || "Something went wrong. Please try again.",
         });
-        reset();
-        setTotalAmount(0);
       }
-    } catch (error) {
-      console.error("Error saving task:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Failed to Save Task",
-        text: error.response?.data?.error || "Something went wrong. Please try again.",
-      });
     }
   };
 
@@ -184,8 +195,7 @@ function AddNewTask() {
 
         {/* Total Payable Amount Display */}
         <div className="text-lg font-semibold text-primary flex justify-between">
-          <p>Total Payable Amount: {totalAmount > 0 ? `${totalAmount} coins` : "—"}</p>
-          {amountError && <p className="text-red-500">You need : {amountError}</p>}
+          <p>Payable Amount: {totalAmount > 0 ? `${totalAmount} coins` : "—"}</p>
         </div>
 
         {/* Submit Button */}

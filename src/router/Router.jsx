@@ -23,6 +23,8 @@ import Forbidden from "../pages/forbidden/Forbidden";
 import BuyerRoutes from "../routes/BuyerRoutes";
 import WorkerRoutes from "../routes/WorkerRoutes";
 import AdminRoutes from "../routes/AdminRoutes";
+import Payment from "../pages/payment/Payment";
+import TaskDetails from "../pages/worker/taskList/TaskDetails";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +87,10 @@ const router = createBrowserRouter([
             <DashboardHome></DashboardHome>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "payment/:taskId",
+        element: <Payment></Payment>,
       },
 
       // admin
@@ -161,6 +167,16 @@ const router = createBrowserRouter([
           <PrivateRoutes>
             <WorkerRoutes>
               <TaskList></TaskList>
+            </WorkerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "taskDetails/:id",
+        element: (
+          <PrivateRoutes>
+            <WorkerRoutes>
+              <TaskDetails></TaskDetails>
             </WorkerRoutes>
           </PrivateRoutes>
         ),

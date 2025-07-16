@@ -9,8 +9,6 @@ export default function useUserRole() {
   const {
     data: role ,
     isLoading,
-    isError,
-    error,
     refetch,
   } = useQuery({
     queryKey: ["userRole", user?.email],
@@ -21,5 +19,5 @@ export default function useUserRole() {
     },
   });
 
-  return { role, roleLoading: loading || isLoading, isError, error, refetch };
+  return { role, roleLoading: loading || isLoading, refetch };
 }

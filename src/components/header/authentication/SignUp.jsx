@@ -37,6 +37,7 @@ function SignUp() {
         navigate(from);
         updateUserProfile(userUpdateInfo).then(async () => {
           const userInfo = await {
+            name: data.name,
             role: data.role,
             number: data.number,
             email: data.email,

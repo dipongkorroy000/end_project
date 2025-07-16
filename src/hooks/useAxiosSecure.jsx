@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 
 const useAxiosSecure = () => {
   const navigate = useNavigate();
-  const { user, logOut } = useAuth();
+  const { user, logout} = useAuth();
 
   // firebase access token send backend
   axiosInstance.interceptors.request.use(
@@ -28,14 +28,14 @@ const useAxiosSecure = () => {
       return res;
     },
     (error) => {
-      console.log("inside res interceptor error", error);
+      // console.log("inside res interceptor error", error);
 
       if (error.status === 403) {
         navigate("/forbidden");
       }
       if (error.status === 401) {
-        logOut().then(() => {
-          navigate("/login");
+        logout().then(() => {
+          navigate("/signIn");
         });
       }
 
