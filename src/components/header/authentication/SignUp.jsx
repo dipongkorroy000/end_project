@@ -130,26 +130,18 @@ function SignUp() {
 
         {/* Phone Number */}
         <div className="mb-4 animate-slideUp delay-100">
-          <label className="block mb-1 font-medium ">Phone Number</label>
+          <label className="block mb-1 font-medium">Phone Number</label>
           <input
-            type="number"
+            type="text"
             {...register("number", {
-              required: "Number is required",
-              minLength: {
-                value: 11,
-                message: "Phone number must be exactly 11 digits",
+              pattern: {
+                value: /^01\d{9}$/,
+                message: "Phone number must be 11 digits and start with '01'",
               },
-
-              maxLength: {
-                value: 11,
-                message: "Phone number must be exactly 11 digits",
-              },
-
-              // validate: (value) => value.toString().length === 11 || "Phone number must be exactly 11 ",
             })}
-            className="w-full px-4 py-2 border border-gray-300 rounded text-base  placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 border border-gray-300 rounded text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number?.message}</p>}
+          {errors.number && <p className="text-red-500 text-sm mt-1">{errors.number.message}</p>}
         </div>
 
         {/* Email */}

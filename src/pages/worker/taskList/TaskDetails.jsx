@@ -41,6 +41,7 @@ const TaskDetails = () => {
     const submissionInfo = {
       ...data,
       taskId: task._id,
+      task_title: task.task_title,
       buyer_email: task.buyer_email,
       buyer_name: task.buyer_name,
       payable_amount: task.payable_amount,
