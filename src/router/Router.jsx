@@ -25,6 +25,7 @@ import WorkerRoutes from "../routes/WorkerRoutes";
 import AdminRoutes from "../routes/AdminRoutes";
 import Payment from "../pages/payment/Payment";
 import TaskDetails from "../pages/worker/taskList/TaskDetails";
+import PurchasePayment from "../pages/buyer/purchaseCoin/purchasePayment/PurchasePayment";
 
 const router = createBrowserRouter([
   {
@@ -90,7 +91,23 @@ const router = createBrowserRouter([
       },
       {
         path: "payment/:taskId",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <Payment></Payment>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "purchasePayment/:coin",
+        element: (
+          <PrivateRoutes>
+            <BuyerRoutes>
+              <PurchasePayment></PurchasePayment>
+            </BuyerRoutes>
+          </PrivateRoutes>
+        ),
       },
 
       // admin

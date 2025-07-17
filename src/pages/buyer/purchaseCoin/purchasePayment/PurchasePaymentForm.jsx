@@ -1,17 +1,15 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
-import useAxios from "../../hooks/useAxios";
+import useAuth from "../../../../hooks/useAuth";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
-const PaymentForm = () => {
+const PurchasePaymentForm = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { user, taskTotalCoin, loading } = useAuth();
-  const { taskId } = useParams();
-  const axiosUse = useAxios();
+  const { user, loading } = useAuth();
+  const { coin: purchase } = useParams();
   const [errorState, setError] = useState("");
 
   const stripe = useStripe();
@@ -20,7 +18,13 @@ const PaymentForm = () => {
   if (loading) {
     return "...loading";
   }
-  const coin = parseFloat(taskTotalCoin);
+
+  const updateCoin = parseInt(purchase);
+
+  let coin = 0;
+  if (updateCoin >= 0) {
+    coin = updateCoin;
+  }
 
   //   console.log(coin, typeof coin, taskId, 'taskId');
 
@@ -45,7 +49,6 @@ const PaymentForm = () => {
     const amountInSens = await parseInt(coin * 100);
     const res = await axiosSecure.post("create-payment-intent", {
       amountInSens,
-      taskId,
     });
     // step 3: confirm payment
     const clientSecret = res.data.clientSecret;
@@ -67,35 +70,33 @@ const PaymentForm = () => {
 
         // step 4: mark parcel paid also create payment history
         const paymentData = {
-          taskId,
           email: user.email,
           name: user.displayName,
-          coin,
+          purchaseCoin: coin,
           transactionId: result.paymentIntent.id,
           paymentMethod: result.paymentIntent.payment_method_types,
         };
 
-        const res = await axiosUse.post("/payment", paymentData);
-        // console.log(res.data.insertedId, "responsePost");
+        await axiosSecure.patch(`/userCoinUpdate?email=${user.email}`, { coin, sumOrSub: true }).then(async (res) => {
+          await axiosSecure.post("/coinPurchase", paymentData);
+          if (res.status === 200) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Payment successful",
+              showConfirmButton: false,
+              timer: 500,
+            });
 
-        if (res.data.insertedId) {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Payment successful",
-            showConfirmButton: false,
-            timer: 500,
-          });
-
-          navigate("/dashboard/myTasks");
-        }
+            navigate("/dashboard");
+          }
+        });
       }
     }
 
     if (error) {
       setError(error.message);
     } else {
-
       setError("");
       console.log("[PaymentMethod]", paymentMethod);
     }
@@ -114,4 +115,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm;
+export default PurchasePaymentForm;

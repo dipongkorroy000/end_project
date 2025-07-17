@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -12,6 +12,7 @@ const TaskDetails = () => {
   const { user, loading: authLoading } = useAuth();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
 
   // Fetch task details
   const { data: task = {}, isLoading: taskLoading } = useQuery({
@@ -31,6 +32,7 @@ const TaskDetails = () => {
     onSuccess: () => {
       Swal.fire("✅ Success", "Submission sent successfully.", "success");
       reset();
+      navigate("/dashboard/mySubmissions");
     },
     onError: (error) => {
       Swal.fire("❌ Error", `${error.response.data.message}`, "error");

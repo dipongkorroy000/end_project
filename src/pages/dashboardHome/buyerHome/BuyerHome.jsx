@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAuth from "../../../hooks/useAuth";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 const BuyerHome = () => {
   const { user, loading } = useAuth();
   const axiosSecure = useAxiosSecure();
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   const {
     data: total = {},
@@ -23,6 +24,8 @@ const BuyerHome = () => {
   });
 
   const { taskCount, totalWorkersPending, totalCoin, submission = [] } = total;
+
+  console.log(submission);
 
   const handleStatusChange = async (submissionId, worker_email, taskId, amount, status) => {
     try {
@@ -42,6 +45,11 @@ const BuyerHome = () => {
     } catch {
       Swal.fire("Error", "Server error", "error");
     }
+  };
+
+  const openModal = (submission) => {
+    setSelectedSubmission(submission);
+    document.getElementById("submission_modal").showModal();
   };
 
   if (loading || isLoading) {
@@ -76,9 +84,9 @@ const BuyerHome = () => {
             <thead>
               <tr>
                 <th>#</th>
+                <th>Task Title</th>
                 <th>Worker</th>
                 <th>Email</th>
-                <th>Details</th>
                 <th>Payable ($)</th>
                 <th>Submitted At</th>
                 <th>Status</th>
@@ -89,9 +97,9 @@ const BuyerHome = () => {
               {submission.map((item, index) => (
                 <tr key={item._id}>
                   <td>{index + 1}</td>
+                  <td>{item.task_title}</td>
                   <td>{item.worker_name}</td>
                   <td>{item.worker_email}</td>
-                  <td>{item.submission_details}</td>
                   <td>${item.payable_amount}</td>
                   <td>{new Date(item.submission_at).toLocaleString()}</td>
                   <td>
@@ -107,7 +115,10 @@ const BuyerHome = () => {
                       {item.status}
                     </span>
                   </td>
-                  <td className="space-x-2">
+                  <td className="space-x-2 min-w-72 border">
+                    <button className="btn btn-sm btn-info" onClick={() => openModal(item)}>
+                      View Details
+                    </button>
                     <button
                       className="btn btn-sm btn-success"
                       onClick={() =>
@@ -135,6 +146,19 @@ const BuyerHome = () => {
           <p className="text-center text-gray-500">No submissions found.</p>
         )}
       </div>
+
+      {/* ✅ Modal for Submission Details */}
+      <dialog id="submission_modal" className="modal">
+        <div className="modal-box">
+          <form method="dialog">
+            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+          </form>
+          <h3 className="font-bold text-lg">Submission Details</h3>
+          <p className="py-4 whitespace-pre-wrap">
+            {selectedSubmission?.submission_details || "No details available."}
+          </p>
+        </div>
+      </dialog>
     </div>
   );
 };

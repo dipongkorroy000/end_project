@@ -1,8 +1,6 @@
 import React from "react";
 import { FaCoins } from "react-icons/fa";
-// import { loadStripe } from "@stripe/stripe-js";
-
-// const stripePromise = loadStripe("your-stripe-publishable-key"); // Replace with your actual key
+import { useNavigate } from "react-router";
 
 const coinPackages = [
   { coins: 10, price: 1 },
@@ -12,24 +10,9 @@ const coinPackages = [
 ];
 
 const PurchaseCoin = () => {
-  const handlePurchase = async (price, coins) => {
-    // const stripe = await stripePromise;
-
-    // const response = await fetch("/create-checkout-session", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ price, coins }),
-    // });
-
-    // const session = await response.json();
-
-    // const result = await stripe.redirectToCheckout({
-    //   sessionId: session.id,
-    // });
-
-    // if (result.error) {
-    //   console.error(result.error.message);
-    // }
+  const navigate = useNavigate();
+  const handlePurchase = async (coins) => {
+    navigate(`/dashboard/purchasePayment/${coins}`);
   };
 
   return (
@@ -38,13 +21,28 @@ const PurchaseCoin = () => {
         <div
           key={coins}
           className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer border border-primary"
-          onClick={() => handlePurchase(price, coins)}
         >
           <div className="card-body items-center text-center">
             <FaCoins className="text-blue-500 text-5xl mb-2" />
             <h2 className="card-title">{coins} Coins</h2>
             <p className="text-lg font-bold ">${price}</p>
-            <button className="btn bg-primary mt-4">Purchase</button>
+            {/* <button className="btn bg-primary mt-4">Purchase</button> */}
+            <button
+              onClick={() => handlePurchase(coins)}
+              href="#_"
+              className="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700"
+            >
+              Purchase
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
           </div>
         </div>
       ))}

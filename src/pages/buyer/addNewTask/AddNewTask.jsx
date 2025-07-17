@@ -105,7 +105,7 @@ function AddNewTask() {
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-base-100 shadow-lg rounded-lg mt-10">
-      <h2 className="text-3xl font-bold text-center text-primary mb-6">Add New Task</h2>
+      <h2 className="text-3xl font-bold text-center text-color mb-6">Add New Task</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Task Title */}
@@ -199,8 +199,19 @@ function AddNewTask() {
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="btn btn-primary w-full flex items-center justify-center gap-2">
+        {/* <button type="submit" className="btn btn-primary w-full flex items-center justify-center gap-2">
           <FaPlusCircle /> Add Task
+        </button> */}
+
+        <button
+          type="submit"
+          href="#_"
+          className="relative items-center justify-start inline-block px-5 py-2 overflow-hidden font-medium transition-all bg-blue-600 rounded-lg hover:bg-white group cursor-pointer"
+        >
+          <span className="absolute inset-0 border-0 group-hover:border-[25px] ease-linear duration-100 transition-all border-white rounded-lg"></span>
+          <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-blue-600 flex items-center gap-3">
+             <FaPlusCircle />Add Task
+          </span>
         </button>
       </form>
     </div>

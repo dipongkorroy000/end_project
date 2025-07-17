@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FaAffiliatetheme } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink } from "react-router-dom";
 
-const UserNavbar = ({ user, logout }) => {
+const UserNavbar = ({ user }) => {
   const [theme, setTheme] = useState(() => {
     // Get theme from localStorage or default to 'dark'
     const savedTheme = localStorage.getItem("theme");
@@ -19,37 +19,51 @@ const UserNavbar = ({ user, logout }) => {
     setTheme(!theme);
   };
 
-  const handleLogout = () => {
-    logout();
-  };
-
   const links = (
     <>
       <li>
-        <NavLink to="/dashboard" className="text-color">
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-md ${isActive ? "bg-primary text-white" : "hover:bg-base-200"}`
+          }
+        >
           Dashboard
         </NavLink>
       </li>
 
       <li>
-        <NavLink to="/" className="text-color">
+        <NavLink
+          to="/availableCoin"
+          end
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-md ${isActive ? "bg-primary text-white" : "hover:bg-base-200"}`
+          }
+        >
           Available Coin
         </NavLink>
       </li>
+
       <li>
-        <NavLink to="/profile" className="text-color">
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-md ${isActive ? "bg-primary text-white" : "hover:bg-base-200"}`
+          }
+        >
           Profile
         </NavLink>
       </li>
+
       <li>
-        <NavLink to="/" className="text-color">
-          <span onClick={handleLogout}>Logout</span>
-        </NavLink>
-      </li>
-      <li>
-        <NavLink to={"https://github.com/dipongkorroy000"} className="text-color" >
+        <a
+          href="https://github.com/dipongkorroy000"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 rounded-md hover:bg-base-200"
+        >
           Join as Developer
-        </NavLink>
+        </a>
       </li>
     </>
   );

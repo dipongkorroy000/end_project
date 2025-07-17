@@ -74,10 +74,12 @@ const MyTasks = () => {
             text: "Your file has been deleted.",
             icon: "success",
           });
-          await axiosUse.patch(`/userCoinUpdate?email=${user?.email}`, {
-            coin: refillAmount,
-            sumOrSub: false,
-          });
+          if (task.payment_status === "paid") {
+            await axiosUse.patch(`/userCoinUpdate?email=${user?.email}`, {
+              coin: refillAmount,
+              sumOrSub: false,
+            });
+          }
           await axiosUse.delete(`/taskDelete/${task._id}`);
           refetch();
         }

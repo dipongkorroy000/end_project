@@ -1,7 +1,6 @@
 import React from "react";
-import DashboardHeader from "../components/dashboardHeader/DashboardHeader";
 import Footer from "../pages/dashboard/footer/Footer";
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FiHome,
   FiLogOut,
@@ -52,31 +51,52 @@ const DashboardLayout = () => {
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-72 min-h-full bg-base-100 text-base-content">
-            <h2 className="">
+            <h2>
               <Link to="/" className="btn btn-ghost text-xl font-bold mb-4">
                 📦TaskNest
               </Link>
             </h2>
 
             <li>
-              <Link to="/dashboard">
+              <NavLink
+                to="/dashboard"
+                end // 👈 ensures exact match
+                className={({ isActive }) =>
+                  `flex items-center gap-2 px-4 py-2 rounded-md ${
+                    isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                  }`
+                }
+              >
                 <FiHome className="text-lg text-color" /> Home
-              </Link>
+              </NavLink>
             </li>
 
-            {/* admin  */}
+            {/* admin */}
             {data.role === "admin" && (
               <>
                 <li>
-                  <Link to="/dashboard/manageTask">
+                  <NavLink
+                    to="/dashboard/manageTask"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiPackage className="text-lg text-color" /> ManageTask
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/manageUsers">
-                    <FiSettings className="text-lg text-color" />
-                    Manage Users
-                  </Link>
+                  <NavLink
+                    to="/dashboard/manageUsers"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
+                    <FiSettings className="text-lg text-color" /> Manage Users
+                  </NavLink>
                 </li>
               </>
             )}
@@ -85,51 +105,101 @@ const DashboardLayout = () => {
             {data.role === "buyer" && (
               <>
                 <li>
-                  <Link to="/dashboard/addNewTask">
+                  <NavLink
+                    to="/dashboard/addNewTask"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiPlusCircle className="text-lg text-color" /> Add Task
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/myTasks">
+                  <NavLink
+                    to="/dashboard/myTasks"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiClipboard className="text-lg text-color" /> My Tasks
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/paymentHistory">
+                  <NavLink
+                    to="/dashboard/paymentHistory"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiCreditCard className="text-lg text-color" /> Payment History
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/purchaseCoin">
+                  <NavLink
+                    to="/dashboard/purchaseCoin"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiShoppingCart className="text-lg text-color" /> Purchase Coin
-                  </Link>
+                  </NavLink>
                 </li>
               </>
             )}
 
             {/* worker */}
-
             {data.role === "worker" && (
               <>
                 <li>
-                  <Link to="/dashboard/taskList">
+                  <NavLink
+                    to="/dashboard/taskList"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiList className="text-lg text-color" /> Task List
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/mySubmissions">
+                  <NavLink
+                    to="/dashboard/mySubmissions"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiSend className="text-lg text-color" /> My Submissions
-                  </Link>
+                  </NavLink>
                 </li>
                 <li>
-                  <Link to="/dashboard/withdrawals">
+                  <NavLink
+                    to="/dashboard/withdrawals"
+                    className={({ isActive }) =>
+                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                        isActive ? "bg-primary text-white" : "hover:bg-base-200"
+                      }`
+                    }
+                  >
                     <FiDollarSign className="text-lg text-color" /> Withdrawals
-                  </Link>
+                  </NavLink>
                 </li>
-
                 <li>
-                  <button>
-                    <FiLogOut className="text-lg text-color" /> <span onClick={handleLogout}>Logout</span>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-base-200"
+                  >
+                    <FiLogOut className="text-lg text-color" /> Logout
                   </button>
                 </li>
               </>

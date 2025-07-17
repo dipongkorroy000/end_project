@@ -1,14 +1,12 @@
 import React from "react";
-import {  useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SnipPetLoading from "../../../components/Spinner/SnipPetLoading";
 import { useNavigate } from "react-router";
-import Swal from "sweetalert2";
 
 const TaskList = () => {
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  
 
   const { data: tasks = [], isLoading } = useQuery({
     queryKey: ["tasks"],
@@ -21,7 +19,6 @@ const TaskList = () => {
   if (isLoading) {
     return <SnipPetLoading></SnipPetLoading>;
   }
-
 
   return (
     <>
@@ -57,9 +54,16 @@ const TaskList = () => {
                     </p>
                   </div>
                   <div className="card-actions justify-end mt-4">
-                    <button onClick={() => navigate(`/dashboard/taskDetails/${task._id}`)} className="btn bg-primary">
-                      View Details
-                    </button>
+                    <a
+                      onClick={() => navigate(`/dashboard/taskDetails/${task._id}`)}
+                      href="#_"
+                      className="relative inline-flex items-center justify-start px-5 py-2.5 overflow-hidden font-medium transition-all bg-white rounded hover:bg-white group"
+                    >
+                      <span className="w-48 h-48 rounded rotate-[-40deg] bg-purple-600 absolute bottom-0 left-0 -translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
+                      <span className="relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white">
+                        View Details
+                      </span>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -67,8 +71,6 @@ const TaskList = () => {
           </div>
         )}
       </div>
-
-     
     </>
   );
 };
