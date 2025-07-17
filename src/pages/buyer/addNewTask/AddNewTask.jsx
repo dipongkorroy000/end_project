@@ -7,11 +7,11 @@ import useAuth from "../../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import useAxios from "../../../hooks/useAxios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 function AddNewTask() {
   const { user, setCoin } = useAuth();
-  const axiosUse = useAxios();
+  const axiosSecure = useAxiosSecure();
   const [totalAmount, setTotalAmount] = useState(0);
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
@@ -25,7 +25,7 @@ function AddNewTask() {
   const { data: userCoin = 0 } = useQuery({
     queryKey: ["userCoin", user.email],
     queryFn: async () => {
-      const res = await axiosUse.get(`/userFind?email=${user.email}`);
+      const res = await axiosSecure.get(`/userFind?email=${user.email}`);
       return res.data.coin;
     },
     enabled: !!user?.email,
@@ -64,9 +64,7 @@ function AddNewTask() {
       };
 
       try {
-        const res = await axiosUse.post("/addTask", taskPayload);
-
-        // console.log(res.data)
+        const res = await axiosSecure.post("/addTask", taskPayload);
         if (res.data?.taskId) {
           navigate(`/dashboard/payment/${res.data?.taskId}`);
           toast("your task saved");
@@ -94,9 +92,7 @@ function AddNewTask() {
 
     try {
       const response = await axios.post(imageUrl, formData);
-      // console.log("Upload response:", response.data);
       const uploadedImageUrl = response.data.data.url;
-      // console.log(uploadedImageUrl)
       setImage(uploadedImageUrl);
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -210,7 +206,8 @@ function AddNewTask() {
         >
           <span className="absolute inset-0 border-0 group-hover:border-[25px] ease-linear duration-100 transition-all border-white rounded-lg"></span>
           <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-blue-600 flex items-center gap-3">
-             <FaPlusCircle />Add Task
+            <FaPlusCircle />
+            Add Task
           </span>
         </button>
       </form>

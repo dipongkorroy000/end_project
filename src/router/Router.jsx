@@ -26,6 +26,7 @@ import AdminRoutes from "../routes/AdminRoutes";
 import Payment from "../pages/payment/Payment";
 import TaskDetails from "../pages/worker/taskList/TaskDetails";
 import PurchasePayment from "../pages/buyer/purchaseCoin/purchasePayment/PurchasePayment";
+import AvailableCoin from "../components/availableCoin/AvailableCoin";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             <ProfileUpdate></ProfileUpdate>
           </PrivateRoutes>
         ),
+      },
+      {
+        path: "/availableCoin",
+        Component: AvailableCoin,
       },
       {
         path: "/forbidden",

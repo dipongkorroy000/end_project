@@ -22,13 +22,13 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const axiosUse = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { user, loading: load, logout } = useAuth();
 
   const { data = {}, loading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await axiosUse(`/userFind?email=${user?.email}`);
+      const res = await axiosSecure(`/userFind?email=${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,

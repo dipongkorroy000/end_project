@@ -22,7 +22,6 @@ const PaymentForm = () => {
   }
   const coin = parseFloat(taskTotalCoin);
 
-  //   console.log(coin, typeof coin, taskId, 'taskId');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,7 +75,6 @@ const PaymentForm = () => {
         };
 
         const res = await axiosUse.post("/payment", paymentData);
-        // console.log(res.data.insertedId, "responsePost");
 
         if (res.data.insertedId) {
           Swal.fire({

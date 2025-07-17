@@ -26,7 +26,6 @@ const PurchasePaymentForm = () => {
     coin = updateCoin;
   }
 
-  //   console.log(coin, typeof coin, taskId, 'taskId');
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -66,8 +66,6 @@ const Withdrawals = () => {
       withdraw_date: new Date().toISOString(),
       status: "pending",
     };
-
-    console.log(payload);
     mutation.mutate(payload);
   };
 

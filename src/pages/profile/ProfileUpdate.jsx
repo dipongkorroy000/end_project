@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useNavigate } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -10,13 +10,13 @@ import { toast } from "react-toastify";
 const ProfileUpdate = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
-  const axiosUse = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user, loading, updateUserProfile } = useAuth();
 
   const { data } = useQuery({
     queryKey: ["user", user.email],
     queryFn: async () => {
-      const res = await axiosUse.get(`/userFind?email=${user.email}`);
+      const res = await axiosSecure.get(`/userFind?email=${user.email}`);
       return res.data;
     },
     enabled: !!user.email,
@@ -41,7 +41,7 @@ const ProfileUpdate = () => {
       updateUserProfile(updateDoc).then(async () => {
         navigate("/profile");
 
-        await axiosUse
+        await axiosSecure
           .patch("/userUpdate", {
             email: user.email,
             role: role,
@@ -70,9 +70,7 @@ const ProfileUpdate = () => {
 
     try {
       const response = await axios.post(imageUrl, formData);
-      // console.log("Upload response:", response.data);
       const uploadedImageUrl = response.data.data.url;
-      // console.log(uploadedImageUrl)
       setImage(uploadedImageUrl);
     } catch (error) {
       console.error("Image upload failed:", error);

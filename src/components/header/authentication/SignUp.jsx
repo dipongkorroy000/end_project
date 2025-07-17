@@ -69,9 +69,7 @@ function SignUp() {
 
     try {
       const response = await axios.post(imageUrl, formData);
-      // console.log("Upload response:", response.data);
       const uploadedImageUrl = response.data.data.url;
-      // console.log(uploadedImageUrl)
       setImage(uploadedImageUrl);
     } catch (error) {
       console.error("Image upload failed:", error);

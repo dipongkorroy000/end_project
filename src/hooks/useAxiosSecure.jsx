@@ -28,7 +28,6 @@ const useAxiosSecure = () => {
       return res;
     },
     (error) => {
-      // console.log("inside res interceptor error", error);
 
       if (error.status === 403) {
         navigate("/forbidden");

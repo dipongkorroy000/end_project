@@ -7,8 +7,6 @@ import LoadingSpinner from "../../components/Spinner/LoadingSpinner";
 const Header = () => {
   const { user, loading, logout } = useAuth();
 
-  // console.log(user)
-
   if (loading) {
     return <LoadingSpinner></LoadingSpinner>;
   }

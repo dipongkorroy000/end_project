@@ -3,18 +3,18 @@ import useAuth from "../../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import PageSpinner from "../../components/Spinner/PageSpinner";
 import { useQuery } from "@tanstack/react-query";
-import useAxios from "../../hooks/useAxios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { format } from "date-fns";
 
 function Profile() {
   const navigate = useNavigate();
-  const axiosUse = useAxios();
+  const axiosSecure = useAxiosSecure();
   const { user, logout, loading: load } = useAuth();
 
   const { data = {}, loading } = useQuery({
     queryKey: ["user", user?.email],
     queryFn: async () => {
-      const res = await axiosUse(`/userFind?email=${user?.email}`);
+      const res = await axiosSecure(`/userFind?email=${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,

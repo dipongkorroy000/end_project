@@ -43,7 +43,7 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        userDelete().then((result) => console.log(result));
+        userDelete().then(() => {});
         const res = await axiosSecure.delete(`/deleteUser/${userId}`);
         if (res.data.deletedCount > 0) {
           Swal.fire({

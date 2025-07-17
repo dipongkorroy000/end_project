@@ -25,8 +25,6 @@ const BuyerHome = () => {
 
   const { taskCount, totalWorkersPending, totalCoin, submission = [] } = total;
 
-  console.log(submission);
-
   const handleStatusChange = async (submissionId, worker_email, taskId, amount, status) => {
     try {
       const res = await axiosSecure.patch(`/submissionStatusUpdate/${submissionId}`, {
