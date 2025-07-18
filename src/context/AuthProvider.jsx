@@ -17,6 +17,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [taskTotalCoin, setCoin] = useState(0);
+  const [reload, setReload] = useState(false);
 
   const createUser = (email, password) => {
     setLoading(true);
@@ -53,7 +54,7 @@ const AuthProvider = ({ children }) => {
     });
 
     return () => unSubscribe();
-  }, [setUser, setLoading]);
+  }, [setUser, setLoading, setReload]);
 
   const data = {
     createUser,
@@ -66,6 +67,8 @@ const AuthProvider = ({ children }) => {
     taskTotalCoin,
     setCoin,
     userDelete,
+    setReload,
+    reload,
   };
   return <AuthContext value={data}>{children}</AuthContext>;
 };

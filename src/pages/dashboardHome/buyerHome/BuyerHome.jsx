@@ -25,6 +25,7 @@ const BuyerHome = () => {
 
   const { taskCount, totalWorkersPending, totalCoin, submission = [] } = total;
 
+
   const handleStatusChange = async (submissionId, worker_email, taskId, amount, status) => {
     try {
       const res = await axiosSecure.patch(`/submissionStatusUpdate/${submissionId}`, {
@@ -113,7 +114,7 @@ const BuyerHome = () => {
                       {item.status}
                     </span>
                   </td>
-                  <td className="space-x-2 min-w-72 border">
+                  <td className="space-x-2 min-w-72">
                     <button className="btn btn-sm btn-info" onClick={() => openModal(item)}>
                       View Details
                     </button>

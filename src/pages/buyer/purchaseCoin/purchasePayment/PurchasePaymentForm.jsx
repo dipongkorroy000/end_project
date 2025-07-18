@@ -8,7 +8,7 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 const PurchasePaymentForm = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, loading, setReload, reload } = useAuth();
   const { coin: purchase } = useParams();
   const [errorState, setError] = useState("");
 
@@ -25,7 +25,6 @@ const PurchasePaymentForm = () => {
   if (updateCoin >= 0) {
     coin = updateCoin;
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,7 +85,7 @@ const PurchasePaymentForm = () => {
               showConfirmButton: false,
               timer: 500,
             });
-
+            setReload(!reload);
             navigate("/dashboard");
           }
         });

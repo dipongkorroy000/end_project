@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../../hooks/useAuth";
 import LoadingSpinner from "../../Spinner/LoadingSpinner";
-import useAxios from "../../../hooks/useAxios";
 import SocialLogin from "./SocialLogin";
 import { toast } from "react-toastify";
+import useAxios from "../../../hooks/useAxios";
 
 function SignIn() {
   const navigate = useNavigate();

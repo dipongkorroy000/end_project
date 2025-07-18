@@ -1,26 +1,59 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const SectionTwo = () => {
+  // Animation variants for cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2, duration: 0.5 },
+    }),
+  };
+
+  const tasks = [
+    {
+      title: "For new buyer",
+      description: "Earn 50 coins by submitting a detailed review.",
+      badge: "High Reward",
+    },
+    {
+      title: "For new worker",
+      description: "Earn 10 coins by submitting a detailed review.",
+      badge: "High Reward",
+    },
+    {
+      title: "Top worker bonus",
+      description: "Workers with 10,000+ coins receive a 100 coin bonus!",
+      badge: "Special Bonus",
+    },
+  ];
+
   return (
     <div className="py-16">
-      <h2 className="text-3xl font-bold text-center mb-10 text-primary">Featured Tasks</h2>
-      <div className="grid grid-cols-2 gap-6 px-4">
-        <div className="card bg-base-100 shadow-md">
-          <div className="card-body">
-            <h3 className="card-title">For new buyer</h3>
-            <p>Earn 50 coins by submitting a detailed review.</p>
-            <div className="badge badge-success mt-2">High Reward</div>
-          </div>
-        </div>
+      <h2 className="text-3xl font-bold text-center mb-10 text-primary">
+        🎯 Featured Tasks
+      </h2>
 
-        <div className="card bg-base-100 shadow-md">
-          <div className="card-body">
-            <h3 className="card-title">For new worker</h3>
-            <p>Earn 10 coins by submitting a detailed review.</p>
-            <div className="badge badge-success mt-2">High Reward</div>
-          </div>
-        </div>
-        {/* Add more cards as needed */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+        {tasks.map((task, index) => (
+          <motion.div
+            key={index}
+            custom={index}
+            initial="hidden"
+            animate="visible"
+            variants={cardVariants}
+            whileHover={{ scale: 1.05 }}
+            className="card bg-base-100 shadow-md border border-gray-200"
+          >
+            <div className="card-body">
+              <h3 className="card-title text-lg text-blue-600">{task.title}</h3>
+              <p className="text-gray-400">{task.description}</p>
+              <div className="badge badge-success mt-2">{task.badge}</div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );

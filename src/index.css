@@ -1,15 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "tailwind-scrollbar-hide";
 
 .link-color {
   color: rgb(85, 115, 248);
 }
 
-.bg-primary{
-    background-color: rgba(218, 160, 35, 0.897);
+.bg-primary {
+  background-color: rgba(218, 160, 35, 0.897);
 }
 
-.text-color{
-    color: rgba(194, 134, 5, 0.897);
+.text-color {
+  color: rgba(194, 134, 5, 0.897);
 }
-

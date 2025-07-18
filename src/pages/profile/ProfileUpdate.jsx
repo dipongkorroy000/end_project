@@ -11,7 +11,7 @@ const ProfileUpdate = () => {
   const [image, setImage] = useState(null);
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
-  const { user, loading, updateUserProfile } = useAuth();
+  const { user, loading, updateUserProfile, setReload, reload } = useAuth();
 
   const { data } = useQuery({
     queryKey: ["user", user.email],
@@ -45,10 +45,11 @@ const ProfileUpdate = () => {
           .patch("/userUpdate", {
             email: user.email,
             role: role,
+            image: image,
           })
           .then((res) => {
-
             if (res.status === 201) {
+              setReload(!reload);
               toast("Updated Your Account");
             }
           });

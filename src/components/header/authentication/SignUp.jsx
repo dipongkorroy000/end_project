@@ -27,6 +27,7 @@ function SignUp() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     createUser(data.email, data.password)
       .then(async () => {
         setAuthError(null);
@@ -38,20 +39,23 @@ function SignUp() {
         updateUserProfile(userUpdateInfo).then(async () => {
           const userInfo = await {
             name: data.name,
+            image: image,
             role: data.role,
             number: data.number,
             email: data.email,
             coin: data.role === "buyer" ? 50 : 10,
           };
-          await axiosUse.post("/userCreate", userInfo);
-          reset();
-          // toast(`you get ${data.role === "buyer" ? 50 : 10} coin`);
-          toast(
-            <span className="text-sm">
-              Created Successfully <br />
-              <p>you get {data.role === "buyer" ? 50 : 10} coin</p>
-            </span>
-          );
+          await axiosUse.post("/userCreate", userInfo).then((res) => {
+            if (res.status === 201) {
+              reset();
+              toast(
+                <span className="text-sm">
+                  Created Successfully <br />
+                  <p>you get {data.role === "buyer" ? 50 : 10} coin</p>
+                </span>
+              );
+            }
+          });
         });
       })
       .catch((error) => {

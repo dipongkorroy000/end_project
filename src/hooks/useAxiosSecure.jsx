@@ -9,12 +9,16 @@ const axiosInstance = axios.create({
 
 const useAxiosSecure = () => {
   const navigate = useNavigate();
-  const { user, logout} = useAuth();
+  const { user, logout, loading } = useAuth();
+
+  if (loading) {
+    return;
+  }
 
   // firebase access token send backend
   axiosInstance.interceptors.request.use(
     (config) => {
-      config.headers.Authorization = `Bearer ${user.accessToken}`;
+      config.headers.Authorization = `Bearer ${user?.accessToken}`;
       return config;
     },
     (error) => {
@@ -28,7 +32,6 @@ const useAxiosSecure = () => {
       return res;
     },
     (error) => {
-
       if (error.status === 403) {
         navigate("/forbidden");
       }
