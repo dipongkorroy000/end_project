@@ -1,12 +1,52 @@
-# React + Vite
+# Assignment-012 Client-Side
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Project Overview
 
-Currently, two official plugins are available:
+This is a React-based frontend project named `TaskNest`, built with modern tooling like Vite, TailwindCSS, DaisyUI, and React Router. It supports Stripe payments, Firebase integration, and delightful UI animations via Framer Motion.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Project Metadata
 
-## Expanding the ESLint configuration
+- **Name:** TaskNest
+- **Version:** 0.0.0
+- **Type:** ES Module
+- **Private:** true
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🔧 Scripts
+
+You can use the following npm scripts to manage the project:
+
+| Script   | Description              |
+|----------|--------------------------|
+| `dev`    | Starts the Vite dev server |
+| `build`  | Builds the project for production |
+| `lint`   | Runs ESLint checks       |
+| `preview`| Previews the production build |
+
+## 🧩 Dependencies
+
+Core libraries and tools used:
+
+- `react`, `react-dom` – React 19
+- `react-router-dom` – Routing
+- `react-hook-form` – Form handling
+- `axios` – HTTP requests
+- `firebase` – Authentication & database
+- `@stripe/react-stripe-js`, `@stripe/stripe-js` – Payment integration
+- `framer-motion` – Animations
+- `react-icons`, `react-toastify`, `sweetalert2` – UI enhancements
+- `swiper`, `react-responsive-carousel` – Carousels
+- `tailwindcss`, `daisyui`, `tailwind-scrollbar-hide` – Styling
+- `@tanstack/react-query` – Data fetching
+- `date-fns` – Date utilities
+
+## 🛠️ DevDependencies
+
+Development tools and plugins:
+
+- `vite` – Fast build tool
+- `@vitejs/plugin-react` – React plugin for Vite
+- `eslint`, `@eslint/js`, `eslint-plugin-react-hooks`, `eslint-plugin-react-refresh` – Linting
+- `@types/react`, `@types/react-dom` – TypeScript support
+- `globals` – ESLint globals
+
+
