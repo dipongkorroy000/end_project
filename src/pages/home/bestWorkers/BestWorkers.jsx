@@ -54,7 +54,7 @@ const BestWorkers = () => {
           animate={{ opacity: 0.3, scale: 0.9 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={transition}
-          className="w-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
+          className="w-[180px] max-md:h-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
         >
           <img
             src={getWorker(-1)?.image}
@@ -72,12 +72,12 @@ const BestWorkers = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={transition}
-            className="w-[220px] h-[250px] flex flex-col items-center justify-center bg-white shadow-lg rounded-xl border border-gray-300 z-10"
+            className="w-[220px] h-[250px] max-md:h-[200px] flex flex-col items-center justify-center bg-white shadow-lg rounded-xl border border-gray-300 z-10"
           >
             <img
               src={getWorker(0)?.image}
               alt="Current"
-              className="w-24 h-24 rounded-full object-cover border-2 border-blue-500 mb-3"
+              className="w-24 h-24 max-md:h-20 max-md:w-20 max-md:m-2 rounded-full object-cover border-2 border-blue-500 mb-3"
             />
             <p className="text-lg font-semibold text-gray-700">{getWorker(0)?.email}</p>
             <p className="text-sm text-gray-500">
@@ -93,7 +93,7 @@ const BestWorkers = () => {
           animate={{ opacity: 0.3, scale: 0.9 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={transition}
-          className="w-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
+          className="w-[180px]  max-md:h-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
         >
           <img
             src={getWorker(1)?.image}
