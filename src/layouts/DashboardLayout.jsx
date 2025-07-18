@@ -52,7 +52,7 @@ const DashboardLayout = () => {
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-72 min-h-full bg-base-100 text-base-content">
             <h2>
-              <Link to="/" className="btn btn-ghost text-xl font-bold mb-4">
+              <Link to="/" className="btn btn-ghost text-xl font-bold mb-4 max-md:text-lg">
                 📦TaskNest
               </Link>
             </h2>
@@ -62,7 +62,7 @@ const DashboardLayout = () => {
                 to="/dashboard"
                 end // 👈 ensures exact match
                 className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-md ${
+                  `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                     isActive ? "bg-primary text-white" : "hover:bg-base-200"
                   }`
                 }
@@ -78,7 +78,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/manageTask"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -90,7 +90,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/manageUsers"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -108,7 +108,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/addNewTask"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -120,7 +120,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/myTasks"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -132,7 +132,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/paymentHistory"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -144,7 +144,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/purchaseCoin"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -162,7 +162,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/taskList"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -174,7 +174,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/mySubmissions"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -186,7 +186,7 @@ const DashboardLayout = () => {
                   <NavLink
                     to="/dashboard/withdrawals"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-md ${
+                      `flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md ${
                         isActive ? "bg-primary text-white" : "hover:bg-base-200"
                       }`
                     }
@@ -197,7 +197,7 @@ const DashboardLayout = () => {
                 <li>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-base-200"
+                    className="flex items-center max-md:text-sm gap-2 px-4 py-2 rounded-md hover:bg-base-200"
                   >
                     <FiLogOut className="text-lg text-color" /> Logout
                   </button>
@@ -215,16 +215,16 @@ const DashboardLayout = () => {
               <label htmlFor="dashboard-drawer" className="btn btn-ghost lg:hidden ">
                 ☰
               </label>
-              <span className="font-bold text-xl">Dashboard</span>
+              <span className="font-bold text-xl max-md:text-lg">Dashboard</span>
             </div>
 
             <div className="flex flex-col items-end space-y-1 px-12 shadow-sm py-1">
               <div className="flex items-center space-x-2 justify-center">
-                <h2 className="text-2xl">{data?.coin || 0}</h2>
+                <h2 className="text-2xl max-md:text-xl">{data?.coin || 0}</h2>
                 <span>|</span>
 
                 {user?.photoURL ? (
-                  <img src={user?.photoURL} className="w-7 content-center h-7 rounded-2xl" alt="profile pic" />
+                  <img src={user?.photoURL} className="w-7 h-7 content-center rounded-2xl" alt="profile pic" />
                 ) : (
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6KK6VjSXL_KiLy8TgTSDm2oLwtFwMiZK-wg&s"

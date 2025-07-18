@@ -61,7 +61,7 @@ const TaskDetails = () => {
   return (
     <div className="card mx-auto shadow-xl 2xl:mx-72 xl:mx-56 lg:mx-24 max-md:w-full">
       <div className="card-body bg-base-100">
-        <h2 className="card-title text-2xl font-bold">{task.task_title}</h2>
+        <h2 className="card-title text-2xl font-bold max-md:text-xl">{task.task_title}</h2>
 
         {/* Meta Info */}
         <div className="flex items-center gap-2 text-sm mb-2">

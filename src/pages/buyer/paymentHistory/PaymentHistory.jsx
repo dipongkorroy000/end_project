@@ -27,11 +27,11 @@ const PaymentHistory = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-12">
-      <h2 className="text-2xl font-bold mb-6">Payment History</h2>
+      <h2 className="text-xl font-bold mb-6">Payment History</h2>
 
       {/* Task Payments Table */}
       <div>
-        <h3 className="text-xl font-semibold mb-4 text-color">Task Payments</h3>
+        <h3 className="text-lg font-semibold mb-4 text-color">Task Payments</h3>
         {taskPayments.length === 0 ? (
           <p className="text-center">No task payments found</p>
         ) : (
@@ -78,7 +78,7 @@ const PaymentHistory = () => {
 
       {/* Purchase Payments Table */}
       <div>
-        <h3 className="text-xl font-semibold mb-4 text-color">Coin Purchase Payments</h3>
+        <h3 className="text-lg font-semibold mb-4 text-color">Coin Purchase Payments</h3>
         {purchasePayments.length === 0 ? (
           <p className="text-center">No purchase payments found</p>
         ) : (

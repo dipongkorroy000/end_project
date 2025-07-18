@@ -44,7 +44,7 @@ const BestWorkers = () => {
 
   return (
     <div className="py-8 px-4 w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold text-center mb-6">🚀 Top Worker Spotlight</h2>
+      <h2 className="text-2xl font-bold text-center mb-6 max-md:text-xl  text-color">🚀 Top Worker Spotlight</h2>
 
       <div className="flex items-center justify-center space-x-6 overflow-hidden relative">
         {/* Previous Worker (dimmed) */}
@@ -54,12 +54,12 @@ const BestWorkers = () => {
           animate={{ opacity: 0.3, scale: 0.9 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={transition}
-          className="w-[180px] max-md:h-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
+          className="w-[180px] max-md:h-[160px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
         >
           <img
             src={getWorker(-1)?.image}
             alt="Previous"
-            className="w-20 h-20 rounded-full object-cover border border-gray-300 mb-2"
+            className="w-20 h-20 max-md:w-16 max-md:h-16 rounded-full object-cover border border-gray-300 mb-2"
           />
           <p className="text-sm text-gray-500 font-medium">Coin: {getWorker(-1)?.coin}</p>
         </motion.div>
@@ -72,7 +72,7 @@ const BestWorkers = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={transition}
-            className="w-[220px] h-[250px] max-md:h-[200px] flex flex-col items-center justify-center bg-white shadow-lg rounded-xl border border-gray-300 z-10"
+            className="w-[220px] h-[250px] max-md:h-[180px] flex flex-col items-center justify-center bg-white shadow-lg rounded-xl border border-gray-300 z-10"
           >
             <img
               src={getWorker(0)?.image}
@@ -93,12 +93,12 @@ const BestWorkers = () => {
           animate={{ opacity: 0.3, scale: 0.9 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={transition}
-          className="w-[180px]  max-md:h-[180px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
+          className="w-[180px]  max-md:h-[160px] h-[220px] flex flex-col items-center justify-center bg-gray-200 rounded-xl shadow-sm"
         >
           <img
             src={getWorker(1)?.image}
             alt="Next"
-            className="w-20 h-20 rounded-full object-cover border border-gray-300 mb-2"
+            className="w-20 h-20 max-md:w-16 max-md:h-16 rounded-full object-cover border border-gray-300 mb-2"
           />
           <p className="text-sm text-gray-500 font-medium">Coin: {getWorker(1)?.coin}</p>
         </motion.div>

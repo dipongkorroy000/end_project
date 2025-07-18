@@ -40,7 +40,7 @@ const testimonials = [
 const TestimonialSlider = () => {
   return (
     <div>
-      <h2 className="text-4xl font-bold text-center text-primary">User Review</h2>
+      <h2 className="text-2xl font-bold text-center max-md:text-xl text-color">User Review</h2>
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
@@ -56,14 +56,14 @@ const TestimonialSlider = () => {
                 <img
                   src={testimonial.photo}
                   alt={testimonial.name}
-                  className="w-24 h-24 rounded-full mx-auto object-cover border-blue-300"
+                  className="w-24 h-24 max-md:w-20 max-md:h-20 rounded-full mx-auto object-cover border-blue-300"
                 />
               </figure>
               <div className="items-center flex flex-col my-5">
                 <FaQuoteLeft className="text-2xl text-primary mb-2" />
-                <p className="text-gray-500">“{testimonial.quote}”</p>
-                <h3 className="italic text-lg font-semibold mt-4">{testimonial.name}</h3>
-                <span className="badge-primary border px-3 py-0.5 rounded-2xl border-blue-200 mt-2">{testimonial.role}</span>
+                <p className="text-gray-500 max-md:text-sm">“{testimonial.quote}”</p>
+                <h3 className="italic text-lg font-semibold mt-4 max-md:text-sm">{testimonial.name}</h3>
+                <span className="badge-primary border px-3 py-0.5 rounded-2xl border-blue-200 mt-2 max-md:text-sm">{testimonial.role}</span>
               </div>
             </div>
           </SwiperSlide>

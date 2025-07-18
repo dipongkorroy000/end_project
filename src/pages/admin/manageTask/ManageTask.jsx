@@ -52,7 +52,7 @@ const ManageTask = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-center font-bold text-2xl mb-5">Total Tasks: {tasks.length}</h1>
+      <h1 className="text-center font-bold text-xl mb-5">Total Tasks: {tasks.length}</h1>
 
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -81,7 +81,9 @@ const ManageTask = () => {
                 <td>${task.payable_amount}</td>
                 <td>${task.total_payable}</td>
                 <td>{new Date(task.completion_date).toLocaleDateString()}</td>
-                <td>{task.submission_info}</td>
+                <td>
+                  <div className="max-h-24 overflow-y-auto whitespace-pre-wrap">{task.submission_info}</div>
+                </td>
                 <td>{task.buyer_email}</td>
                 <td>{new Date(task.created_at).toLocaleString()}</td>
                 <td>

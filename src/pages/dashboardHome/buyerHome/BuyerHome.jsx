@@ -57,21 +57,21 @@ const BuyerHome = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <h2 className="text-2xl font-semibold">📊 Dashboard</h2>
+      <h2 className="text-2xl font-semibold max-md:text-xl">📊 Dashboard</h2>
 
       {/* ✅ Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="shadow rounded p-4">
           <h3 className="text-lg font-medium">Total Tasks</h3>
-          <p className="text-3xl font-bold text-blue-600">{taskCount ?? 0}</p>
+          <p className="text-3xl max-md:text-2xl font-bold text-blue-600">{taskCount ?? 0}</p>
         </div>
         <div className="shadow rounded p-4">
           <h3 className="text-lg font-medium">Pending Workers</h3>
-          <p className="text-3xl font-bold text-green-600">{totalWorkersPending ?? 0}</p>
+          <p className="text-3xl max-md:text-2xl font-bold text-green-600">{totalWorkersPending ?? 0}</p>
         </div>
         <div className="shadow rounded p-4">
           <h3 className="text-lg font-medium">Payment Coins</h3>
-          <p className="text-3xl font-bold text-yellow-600">{totalCoin ?? 0}</p>
+          <p className="text-3xl max-md:text-2xl font-bold text-yellow-600">{totalCoin ?? 0}</p>
         </div>
       </div>
 

@@ -100,13 +100,13 @@ function AddNewTask() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-base-100 shadow-lg rounded-lg mt-10">
-      <h2 className="text-3xl font-bold text-center text-color mb-6">Add New Task</h2>
+    <div className="max-w-2xl mx-auto p-6 max-md:w-sm bg-base-100 shadow-lg rounded-lg mt-10">
+      <h2 className="text-2xl font-bold text-center text-color mb-2 max-md:text-xl">Add New Task</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* Task Title */}
         <div>
-          <label className="font-medium">Task Title</label>
+          <label className="font-medium max-md:text-sm">Task Title</label>
           <input
             type="text"
             {...register("task_title", { required: "Task title is required" })}
@@ -118,7 +118,7 @@ function AddNewTask() {
 
         {/* Task Detail */}
         <div>
-          <label className="font-medium">Task Detail</label>
+          <label className="font-medium max-md:text-sm">Task Detail</label>
           <textarea
             {...register("task_detail", { required: "Task detail is required" })}
             placeholder="Describe the task"
@@ -129,7 +129,7 @@ function AddNewTask() {
 
         {/* Required Workers */}
         <div>
-          <label className="font-medium">Required Workers</label>
+          <label className="font-medium max-md:text-sm">Required Workers</label>
           <input
             type="number"
             {...register("required_workers", {
@@ -144,7 +144,7 @@ function AddNewTask() {
 
         {/* Payable Amount */}
         <div>
-          <label className="font-medium">Payable Amount (per worker)</label>
+          <label className="font-medium max-md:text-sm">Payable Amount (per worker)</label>
           <input
             type="number"
             {...register("payable_amount", {
@@ -159,7 +159,7 @@ function AddNewTask() {
 
         {/* Completion Date */}
         <div>
-          <label className="font-medium">Completion Date</label>
+          <label className="font-medium max-md:text-sm">Completion Date</label>
           <input
             type="date"
             {...register("completion_date", { required: "Completion date is required" })}
@@ -170,7 +170,7 @@ function AddNewTask() {
 
         {/* Submission Info */}
         <div>
-          <label className="font-medium">Submission Info</label>
+          <label className="font-medium max-md:text-sm">Submission Info</label>
           <textarea
             {...register("submission_info")}
             placeholder="Instructions for submission"
@@ -180,7 +180,7 @@ function AddNewTask() {
 
         {/* Task Image URL */}
         <div>
-          <label className="font-medium">Task Image URL</label>
+          <label className="font-medium max-md:text-sm">Task Image URL</label>
           <input
             type="file"
             onChange={(e) => imageHandle(e)}
@@ -190,7 +190,7 @@ function AddNewTask() {
         </div>
 
         {/* Total Payable Amount Display */}
-        <div className="text-lg font-semibold text-primary flex justify-between">
+        <div className="text-lg font-semibold text-primary flex justify-between max-md:text-sm">
           <p>Payable Amount: {totalAmount > 0 ? `${totalAmount} coins` : "—"}</p>
         </div>
 
@@ -202,10 +202,10 @@ function AddNewTask() {
         <button
           type="submit"
           href="#_"
-          className="relative items-center justify-start inline-block px-5 py-2 overflow-hidden font-medium transition-all bg-blue-600 rounded-lg hover:bg-white group cursor-pointer"
+          className="relative items-center justify-start inline-block px-5 py-2 overflow-hidden font-medium transition-all bg-blue-600 rounded-lg hover:bg-white group cursor-pointer max-md:py-1.5 max-md:px-3 max-md:text-sm"
         >
           <span className="absolute inset-0 border-0 group-hover:border-[25px] ease-linear duration-100 transition-all border-white rounded-lg"></span>
-          <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-blue-600 flex items-center gap-3">
+          <span className="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-blue-600 flex items-center gap-3">
             <FaPlusCircle />
             Add Task
           </span>

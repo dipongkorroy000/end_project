@@ -89,7 +89,7 @@ const ManageUsers = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-6">Manage Users</h2>
+      <h2 className="text-xl font-bold mb-4">Manage Users</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">
           {/* head */}
@@ -110,7 +110,7 @@ const ManageUsers = () => {
                 <td>{user.email}</td>
                 <td>{user.coin}</td>
                 <td className="font-semibold capitalize">{user.role || "user"}</td>
-                <td>
+                <td className="min-w-56">
                   <div className="flex items-center gap-2">
                     <select
                       value={selectedRoles[user._id] || "user"}

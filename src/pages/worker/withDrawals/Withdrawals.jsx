@@ -72,8 +72,8 @@ const Withdrawals = () => {
   if (isLoading || loading) return <p className="text-center">Loading...</p>;
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-base-200 rounded-lg shadow-md max-md:mx-5">
-      <h2 className="text-2xl font-bold mb-4">Withdraw Coins</h2>
+    <div className="max-w-xl max-md:w-sm mx-auto p-6 bg-base-200 rounded-lg shadow-md max-md:mx-5">
+      <h2 className="font-bold mb-2 text-xl">Withdraw Coins</h2>
 
       <div className="mb-6">
         <p className="text-lg">

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FaAffiliatetheme } from "react-icons/fa";
+import { LiaAffiliatetheme } from "react-icons/lia";
 import { Link } from "react-router";
 
 const DefaultNavbar = () => {
@@ -28,30 +28,30 @@ const DefaultNavbar = () => {
       </div>
 
       <div
-        className={`tooltip tooltip-bottom mr-3 ${
+        className={`tooltip tooltip-bottom mr-3 mt-2 ${
           theme === false ? "before:bg-gray-100 before:text-black" : "before:bg-gray-800 before:text-white"
         }`}
         data-tip={theme === false ? "Switch to Light Theme" : "Switch to Dark Theme"}
       >
         <button>
-          <FaAffiliatetheme onClick={handleTheme} className="cursor-pointer" size={20} />
+          <LiaAffiliatetheme onClick={handleTheme} className="cursor-pointer" size={18} />
         </button>
       </div>
 
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal max-md:text-sm px-1">
           <li>
             <Link className="link-color underline" to="/signIn">
               SignIn
             </Link>
           </li>
-          <li>
+          <li className="max-md:hidden">
             <Link className="link-color underline" to="/signUp">
               SignUp
             </Link>
           </li>
         </ul>
-        <Link className="btn bg-primary" to={"https://github.com/dipongkorroy000"} >Join as Developer</Link>
+        <Link className="btn bg-primary max-md:px-1 max-md:text-sm max-md:py-0.5" to={"https://github.com/dipongkorroy000"} >Join as Developer</Link>
       </div>
     </nav>
   );

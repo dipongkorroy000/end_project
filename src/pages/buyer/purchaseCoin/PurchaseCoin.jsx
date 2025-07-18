@@ -16,21 +16,20 @@ const PurchaseCoin = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6 mx-auto max-md:w-sm">
       {coinPackages.map(({ coins, price }) => (
         <div
           key={coins}
           className="card bg-base-100 shadow-md hover:shadow-xl transition cursor-pointer border border-primary"
         >
-          <div className="card-body items-center text-center">
+          <div className="card-body items-center text-center max-sm:px-2 mx-auto max-md:py-2">
             <FaCoins className="text-blue-500 text-5xl mb-2" />
             <h2 className="card-title">{coins} Coins</h2>
             <p className="text-lg font-bold ">${price}</p>
-            {/* <button className="btn bg-primary mt-4">Purchase</button> */}
             <button
               onClick={() => handlePurchase(coins)}
               href="#_"
-              className="inline-flex items-center w-full px-5 py-3 mb-3 mr-1 text-base font-semibold text-white no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700"
+              className=" max-md:px-3 max-md:py-1.5 max-md:text-sm inline-flex items-center w-full px-5 py-3 max-md:mb-0.5 mb-3 mr-1 text-base font-semibold no-underline align-middle bg-blue-600 border border-transparent border-solid rounded-md cursor-pointer select-none sm:mb-0 sm:w-auto hover:bg-blue-700 hover:border-blue-700 hover:text-white focus-within:bg-blue-700 focus-within:border-blue-700"
             >
               Purchase
               <svg

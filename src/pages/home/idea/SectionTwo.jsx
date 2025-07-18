@@ -31,12 +31,12 @@ const SectionTwo = () => {
   ];
 
   return (
-    <div className="py-16">
-      <h2 className="text-3xl font-bold text-center mb-10 text-primary">
+    <div className="mb-5 pt-10">
+      <h2 className="text-2xl font-bold text-center mb-5  text-color max-md:text-xl">
         🎯 Featured Tasks
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 mx-auto max-md:w-sm">
         {tasks.map((task, index) => (
           <motion.div
             key={index}
@@ -45,12 +45,12 @@ const SectionTwo = () => {
             animate="visible"
             variants={cardVariants}
             whileHover={{ scale: 1.05 }}
-            className="card bg-base-100 shadow-md border border-gray-200"
+            className="card bg-base-100 shadow-md border border-gray-700"
           >
             <div className="card-body">
               <h3 className="card-title text-lg text-blue-600">{task.title}</h3>
-              <p className="text-gray-400">{task.description}</p>
-              <div className="badge badge-success mt-2">{task.badge}</div>
+              <p className="text-gray-400 max-md:text-sm">{task.description}</p>
+              <div className="badge badge-success mt-2 font-serif">{task.badge}</div>
             </div>
           </motion.div>
         ))}

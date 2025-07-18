@@ -79,8 +79,8 @@ const ProfileUpdate = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 rounded-xl shadow-xl my-10">
-      <h2 className="text-xl font-bold text-blue-600 mb-4">Update Profile</h2>
+    <div className="max-w-md max-md:w-sm max-md:p-10 mx-auto mt-10 p-6 rounded-xl shadow-xl my-10">
+      <h2 className="text-xl font-bold text-blue-600 mb-4 max-md:text-lg">Update Profile</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700">Name</label>
@@ -88,7 +88,7 @@ const ProfileUpdate = () => {
             type="text"
             name="name"
             defaultValue={user?.displayName}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full border border-gray-500 rounded-md max-md:px-2 max-md:py-1 px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
             required
           />
         </div>
@@ -99,7 +99,7 @@ const ProfileUpdate = () => {
             onChange={imageHandle}
             type="file"
             name="photo"
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full border border-gray-500 rounded-md max-md:px-2 max-md:py-1 px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
           />
         </div>
 
@@ -108,7 +108,7 @@ const ProfileUpdate = () => {
           <select
             name="role"
             defaultValue={data?.role}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full border border-gray-500 rounded-md max-md:px-2 max-md:py-1 px-3 py-2 focus:outline-none focus:ring focus:border-blue-300"
             required
           >
             <option value="" disabled>
@@ -121,7 +121,7 @@ const ProfileUpdate = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 font-semibold"
+          className="w-full bg-blue-600 max-md:py-1 max-md:text-sm max-md:font-mono py-2 px-4 rounded-md hover:bg-blue-700 font-semibold"
         >
           Save Changes
         </button>

@@ -30,7 +30,7 @@ const MySubmissions = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">My Submissions</h2>
+      <h2 className="text-2xl font-semibold mb-4 max-md:text-xl">My Submissions</h2>
 
       {submissions.length === 0 ? (
         <p className="text-gray-500">No submissions found.</p>

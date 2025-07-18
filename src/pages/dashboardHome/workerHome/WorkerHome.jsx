@@ -31,22 +31,22 @@ const WorkerHome = () => {
       {/* ✅ Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-base-200 p-4 rounded-lg shadow-md text-center">
-          <h3 className="text-xl font-semibold">Total Submissions</h3>
-          <p className="text-3xl font-bold text-primary">{total_submissions}</p>
+          <h3 className="text-xl max-md:text-lg font-semibold">Total Submissions</h3>
+          <p className="text-3xl max-md:text-2xl font-bold text-primary">{total_submissions}</p>
         </div>
         <div className="bg-base-200 p-4 rounded-lg shadow-md text-center">
-          <h3 className="text-xl font-semibold">Pending Submissions</h3>
-          <p className="text-3xl font-bold text-error">{totalPending}</p>
+          <h3 className="text-xl max-md:text-lg font-semibold">Pending Submissions</h3>
+          <p className="text-3xl max-md:text-2xl font-bold text-error">{totalPending}</p>
         </div>
         <div className="bg-base-200 p-4 rounded-lg shadow-md text-center">
-          <h3 className="text-xl font-semibold">Total Earnings</h3>
-          <p className="text-3xl font-bold text-success">${totalEarnings}</p>
+          <h3 className="text-xl max-md:text-lg font-semibold">Total Earnings</h3>
+          <p className="text-3xl max-md:text-2xl font-bold text-success">${totalEarnings}</p>
         </div>
       </div>
 
       {/* ✅ Approved Submissions Table */}
       <div className="overflow-x-auto">
-        <h2 className="text-2xl font-bold mb-4 text-blue-500">Approved Submissions</h2>
+        <h2 className="text-2xl max-md:text-xl font-bold mb-4 text-blue-500">Approved Submissions</h2>
         {approvedSubmissions.length > 0 ? (
           <table className="table table-zebra w-full">
             <thead>
@@ -79,7 +79,7 @@ const WorkerHome = () => {
 
       {/* Rejected Submissions Table */}
       <div className="overflow-x-auto">
-        <h2 className="text-2xl font-bold mb-4 text-red-500">Rejected Submissions</h2>
+        <h2 className="text-2xl max-md:text-xl font-bold mb-4 text-red-500">Rejected Submissions</h2>
         {rejectedSubmissions.length > 0 ? (
           <table className="table table-zebra w-full">
             <thead>

@@ -75,7 +75,7 @@ const UserNavbar = ({ user }) => {
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-5 w-5 max-md:h-4 max-md:w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -87,13 +87,13 @@ const UserNavbar = ({ user }) => {
             {links}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">
+        <Link to="/" className="btn btn-ghost text-xl max-md:text-lg">
           TaskNest
         </Link>
       </div>
 
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
+        <ul className="menu menu-horizontal px-1 max-md:px-0">{links}</ul>
       </div>
 
       <div className="navbar-end gap-5 items-center">
@@ -104,15 +104,15 @@ const UserNavbar = ({ user }) => {
           data-tip={theme ? "Switch to Dark Theme" : "Switch to Light Theme"}
         >
           <button>
-            <FaAffiliatetheme onClick={handleTheme} className="cursor-pointer" size={22} />
+            <FaAffiliatetheme onClick={handleTheme} className="cursor-pointer max-md:h-5 max-md:w-5" size={22} />
           </button>
         </div>
 
         {user?.photoURL ? (
-          <img className="w-10 h-10 rounded-full" alt="Profile Picture" src={user?.photoURL} />
+          <img className="w-10 h-10 max-md:w-8 max-md:h-8 rounded-full" alt="Profile Picture" src={user?.photoURL} />
         ) : (
           <img
-            className="w-10 h-10 rounded-full"
+            className="w-10 h-10 rounded-full max-md:w-8 max-md:h-8"
             alt="Profile Picture"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6KK6VjSXL_KiLy8TgTSDm2oLwtFwMiZK-wg&s"
           />

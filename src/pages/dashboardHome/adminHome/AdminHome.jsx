@@ -51,33 +51,33 @@ const AdminHome = () => {
 
   return (
     <div className="p-6 space-y-6">
-      <h2 className="text-2xl font-semibold">🛠 Admin Dashboard</h2>
+      <h2 className=" font-semibold text-xl">🛠 Admin Dashboard</h2>
 
       {isPending && <div className="text-sm text-gray-500">Refreshing data...</div>}
 
       {/* ✅ Summary Cards */}
-      <div className="grid border border-gray-500 rounded-xl p-2 grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid border border-gray-600 rounded-xl p-2 grid-cols-1 md:grid-cols-4 gap-4">
         <div className="shadow rounded p-4 text-center">
           <h3 className="text-lg font-medium">👷‍♂️ Workers</h3>
-          <p className="text-3xl font-bold text-blue-600">{workerCount ?? 0}</p>
+          <p className="text-2xl max-md:text-xl font-bold text-blue-600">{workerCount ?? 0}</p>
         </div>
         <div className="shadow rounded p-4 text-center">
           <h3 className="text-lg font-medium">🧑‍💼 Buyers</h3>
-          <p className="text-3xl font-bold text-green-600">{buyerCount ?? 0}</p>
+          <p className="text-2xl max-md:text-xl font-bold text-green-600">{buyerCount ?? 0}</p>
         </div>
         <div className="shadow rounded p-4 text-center">
           <h3 className="text-lg font-medium">💰 Total Coins</h3>
-          <p className="text-3xl font-bold text-yellow-600">{totalCoin ?? 0}</p>
+          <p className="text-2xl max-md:text-xl font-bold text-yellow-600">{totalCoin ?? 0}</p>
         </div>
         <div className="shadow rounded p-4 text-center">
           <h3 className="text-lg font-medium">💳 Payments</h3>
-          <p className="text-3xl font-bold text-purple-600">{paymentCount ?? 0}</p>
+          <p className="text-2xl max-md:text-xl font-bold text-purple-600">{paymentCount ?? 0}</p>
         </div>
       </div>
 
       {/* ✅ Pending Withdrawals Table */}
       <div className="overflow-x-auto">
-        <h3 className="text-xl font-semibold mb-4">🕒 Pending Withdrawals</h3>
+        <h3 className="text-lg font-semibold mb-4">🕒 Pending Withdrawals</h3>
         {pendingWithdrawals.length > 0 ? (
           <table className="table table-zebra w-full">
             <thead>
