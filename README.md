@@ -71,7 +71,6 @@ For a complete list, see the package.json file.
 
 ## Resources
 
-- [Live Project](https://your-live-project-link.com)
 - [Stripe Documentation](https://stripe.com/docs)
 - [Firebase Documentation](https://firebase.google.com/docs)
 - [React Documentation](https://react.dev/)
