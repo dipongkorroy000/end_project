@@ -29,6 +29,22 @@ This project is a feature-rich web application developed with React and Vite, de
 - React Responsive Carousel
 - Date-fns
 
+## Technologies Used
+
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" width="24"/> **React 19 & React DOM**
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vite/vite-original.svg" alt="Vite" width="24"/> **Vite**
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" alt="Tailwind CSS" width="24"/> **Tailwind CSS**
+- <img src="https://raw.githubusercontent.com/saadeghi/daisyui/main/logo-500.svg" alt="DaisyUI" width="24"/> **DaisyUI**
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" width="24"/> **Firebase**
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/axios/axios-plain.svg" alt="Axios" width="24"/> **Axios**
+- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="24"/> **React Router**
+- <img src="https://img.shields.io/badge/React%20Helmet-Async-blue?logo=react" alt="React Helmet Async" width="24"/> **React Helmet Async**
+- <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg" alt="React Icons" width="24"/> **React Icons**
+- <img src="https://img.shields.io/badge/React%20Toastify-20232A?logo=react" alt="React Toastify" width="24"/> **React Toastify**
+- <img src="https://img.shields.io/badge/SweetAlert2-FF4154?logo=sweetalert2&logoColor=white" alt="SweetAlert2" width="24"/> **SweetAlert2**
+- <img src="https://img.shields.io/badge/React%20Simple%20Typewriter-blueviolet?logo=react" alt="React Simple Typewriter" width="24"/>
+
+
 ## Core Features
 
 - Secure Stripe payment integration
